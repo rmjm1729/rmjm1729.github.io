@@ -1,14 +1,18 @@
+/* ==== VARIABLES ==== */
 :root {
   --bg-color: #fdfdfd;
   --text-color: #111;
-  --sidebar-bg: #f4f4f4;
-  --link-color: #007acc;
+  --sidebar-bg: #FF6F1F; /* Neon orange */
+  --link-color: #ffffff;
+  --link-hover: #ffd6b0;
   --border-color: #ddd;
+  --font-serif: 'EB Garamond', Georgia, serif;
 }
 
+/* ==== BASE STYLES ==== */
 body {
   margin: 0;
-  font-family: 'Georgia', serif;
+  font-family: var(--font-serif);
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s ease, color 0.3s ease;
@@ -19,11 +23,12 @@ body {
   min-height: 100vh;
 }
 
+/* ==== SIDEBAR ==== */
 .sidebar {
   width: 250px;
   padding: 2rem;
   background-color: var(--sidebar-bg);
-  border-right: 1px solid var(--border-color);
+  color: white;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -32,6 +37,12 @@ body {
 .sidebar h1 {
   margin-top: 0;
   font-size: 2rem;
+  color: white;
+}
+
+.sidebar p {
+  margin-bottom: 2rem;
+  font-style: italic;
 }
 
 .sidebar nav ul {
@@ -46,8 +57,14 @@ body {
 .sidebar a {
   text-decoration: none;
   color: var(--link-color);
+  transition: color 0.2s;
 }
 
+.sidebar a:hover {
+  color: var(--link-hover);
+}
+
+/* ==== MAIN CONTENT ==== */
 .content {
   padding: 2rem;
   max-width: 800px;
@@ -62,39 +79,30 @@ body {
   padding-left: 1.5rem;
 }
 
-a {
-  color: var(--link-color);
+.content a {
+  color: #007acc;
   text-decoration: none;
 }
 
-a:hover {
+.content a:hover {
   text-decoration: underline;
 }
 
-/* Dark mode overrides */
+/* ==== DARK MODE OVERRIDES ==== */
 body.dark {
   --bg-color: #121212;
   --text-color: #e0e0e0;
-  --sidebar-bg: #1e1e1e;
-  --link-color: #82aaff;
+  --sidebar-bg: #ff6f1f; /* keep neon orange */
+  --link-color: #ffffff;
+  --link-hover: #ffd6b0;
   --border-color: #333;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
+body.dark .content a {
+  color: #82aaff;
 }
 
-/* Toggle button */
+/* ==== TOGGLE BUTTON ==== */
 #theme-toggle {
   position: fixed;
   top: 1rem;
@@ -109,6 +117,20 @@ body.dark {
 }
 
 #theme-toggle:focus {
-  outline: 2px solid var(--link-color);
+  outline: 2px solid #ffd6b0;
   outline-offset: 2px;
 }
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
