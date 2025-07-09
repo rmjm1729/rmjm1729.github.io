@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music |Srinivasa Ramanujam</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h1>Srinivasa Ramanujam</h1>
+      
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#cv">CV</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="social">
+        <p><strong>Discover Me @:</strong></p>
+        <ul>
+          <li><a href="https://open.spotify.com/user/e4i5aewy1pqi9jlivov8al83c" target="_blank">Spotify</a></li>
+          <li><a href="https://www.albumoftheyear.org/user/rmjm/" target="_blank">AOTY</a></li>
+          <li><a href="https://letterboxd.com/sydneysriney/" target="_blank">Letterboxd</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section>
+        <h2>My Music</h2>
+        <p>I learnt Carnatic Music for 5-6 years and Self taught myself the piano for about a year. I try to make something when free-</p>
+
+        <!-- Example 1: Upload MP3s -->
+        <h3>Track: “NY Nagaram: Revisited”</h3>
+        <p>My first attempt at Sampling. Just to remind me sometimes</p>
+        <audio controls>
+          <source src="assets/music/NY Nagaram.mp3" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = '🌙';
+      }
+    });
+  </script>
+</body>
+</html>
