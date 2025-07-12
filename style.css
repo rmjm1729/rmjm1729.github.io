@@ -15,6 +15,9 @@ body {
   padding: 0;
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
   background: #fff;
+=======
+  background: linear-gradient(135deg, #18181b 0%, #232526 100%);
+>>>>>>> 72ca2dfbfdb8bbf17eadbd83b6811cf4e2a3a1cb
   min-height: 100vh;
   color: #222;
   transition: background 0.6s cubic-bezier(.4,0,.2,1), color 0.4s;
@@ -49,21 +52,21 @@ body.dark {
   animation: floatIn 1.2s cubic-bezier(.4,0,.2,1);
 }
 
-.sidebar h1 {
+.sidebar h1, .sidebar-home-link {
   font-size: 2.2rem;
   margin-bottom: 0.2em;
   letter-spacing: 1px;
-  color: #39FF14 !important;
+  color: #181818 !important;
   background: none;
-  text-shadow: 0 0 8px #39FF14, 0 0 24px #39FF14, 0 2px 16px #39FF14, 0 0px 2px #000;
+  text-shadow: none;
   font-weight: 900;
-  -webkit-text-fill-color: #39FF14 !important;
+  -webkit-text-fill-color: #181818 !important;
   background-clip: unset;
 }
 
-body.dark .sidebar h1 {
+body.dark .sidebar h1, body.dark .sidebar-home-link {
   color: #39FF14 !important;
-  text-shadow: 0 0 16px #39FF14, 0 0 32px #39FF14, 0 2px 24px #39FF14, 0 0px 2px #000;
+  text-shadow: 0 0 8px #39FF14, 0 0 24px #39FF14, 0 2px 16px #39FF14, 0 0px 2px #000;
   -webkit-text-fill-color: #39FF14 !important;
 }
 
@@ -309,7 +312,6 @@ body.dark #comment-form input, body.dark #comment-form textarea {
   color: #39FF14;
   box-shadow: 0 0 24px #39FF14;
 =======
->>>>>>> 72ca2dfbfdb8bbf17eadbd83b6811cf4e2a3a1cb
 }
 
 /* ==== TOGGLE BUTTON ==== */
