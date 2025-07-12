@@ -13,7 +13,7 @@
 
   <div class="layout">
     <aside class="sidebar">
-  <h1>Srinivasa Ramanujam</h1>
+  <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
   <p><em>Student of Physics & Math @ IISER Kolkata</em></p>
 
   <nav>
@@ -23,6 +23,7 @@
       <li><a href="#cv">CV</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="music.html">Music</a></li>
+      <li><a href="blog.html">Blog</a></li>
     </ul>
   </nav>
 
@@ -32,7 +33,7 @@
       <section id="about">
         <h2>About Me</h2>
         <p>
-          I'm a third-year student at IISER Kolkata, currently studying Quantum Algorithms with a growing interest in Cosmology.
+          I'm a third-year student at IISER Kolkata, currently studying Quantum Algorithms with interested in Statistical Mechanics and Relativity.
     I enjoy exploring the intersections of physics, mathematics, and computing.
     Outside academics, I read history, quiz competitively, and play cricket and watch football. I also play the piano and guitar.
   </p>
@@ -60,6 +61,10 @@
           <a href="https://www.linkedin.com/in/srinivasa-ramanujam-89aabb287/" target="_blank" rel="noopener">LinkedIn</a>
         </p>
       </section>
+      <section id="visitor">
+        <h2>Visitor Country Counter</h2>
+        <p id="country-counter">Loading...</p>
+      </section>
     </main>
   </div>
 
@@ -82,6 +87,22 @@
         toggleBtn.textContent = '🌙';
       }
     });
+
+    // Visitor country counter
+    async function updateCountryCounter() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        const country = data.country_name || 'Unknown';
+        let counts = JSON.parse(localStorage.getItem('countryCounts') || '{}');
+        counts[country] = (counts[country] || 0) + 1;
+        localStorage.setItem('countryCounts', JSON.stringify(counts));
+        document.getElementById('country-counter').textContent = Object.entries(counts).map(([c, n]) => `${c}: ${n}`).join(', ');
+      } catch (e) {
+        document.getElementById('country-counter').textContent = 'Visitor counter unavailable';
+      }
+    }
+    updateCountryCounter();
   </script>
 </body>
 </html>
