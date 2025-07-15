@@ -7,11 +7,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-  <div class="layout">
+  <div class="site-wrapper">
     <aside class="sidebar">
-      <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
-      <p><em>My Homepage</em></p>
+      <div class="profile">
+        <img src="assets/profile.jpg" alt="Profile picture" class="profile-pic" />
+        <h2>Srinivasa Ramanujam</h2>
+        <p class="pronouns">he/him</p>
+        <p><em>Student of Physics @IISER Kolkata</em></p>
+      </div>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -22,51 +25,38 @@
         </ul>
       </nav>
     </aside>
-    <main class="content glass-box">
+    <main class="main-content glass-card">
       <h1>Analyzing Test Match Bowlers: My Cricket Analytics Project</h1>
       <p><em>Posted July 15, 2025</em></p>
-      <p>
-        In this project, I'm building a data-driven system to compare and rank Test match bowlers across eras. The goal is to go beyond simple stats and use normalization, era adjustment, and clustering to find the best all-round performers in cricket history.
-      </p>
-      <h2>What I'm Doing</h2>
-      <ul>
-        <li>Collecting a comprehensive dataset of Test bowlers and their career stats.</li>
-        <li>Normalizing key metrics (average, strike rate, economy, wickets per match, 5-fors, 10-fors, career span).</li>
-        <li>Adjusting for era so bowlers from different periods can be compared fairly.</li>
-        <li>Defining an "ideal" bowler using the top 10% in each metric.</li>
-        <li>Scoring each bowler by their distance from this ideal using Euclidean distance.</li>
-        <li>Using k-means clustering to find natural groups of similar bowlers.</li>
-      </ul>
-      <h2>Why This Matters</h2>
-      <p>
-        Cricket stats are often skewed by era, match conditions, and longevity. By normalizing and clustering, I hope to provide a more objective, nuanced view of bowling greatness.
-      </p>
-      <h2>See the Code</h2>
-      <p>
-        The full analysis is in <code>test/analyze_bowlers.py</code> in my repository. Check it out if you're interested in cricket analytics or want to try your own experiments!
-      </p>
-      <p>
-        <a href="https://github.com/rmjm1729/test" target="_blank" rel="noopener" style="font-weight:bold; color:#FF6F1F; text-decoration:underline;">View the code and data on GitHub &rarr;</a>
-      </p>
+      <section>
+        <p>
+          In this project, I'm building a data-driven system to compare and rank Test match bowlers across eras. The goal is to go beyond simple stats and use normalization, era adjustment, and clustering to find the best all-round performers in cricket history.
+        </p>
+        <h2>What I'm Doing</h2>
+        <ul>
+          <li>Collecting a comprehensive dataset of Test bowlers and their career stats.</li>
+          <li>Normalizing key metrics (average, strike rate, economy, wickets per match, 5-fors, 10-fors, career span).</li>
+          <li>Adjusting for era so bowlers from different periods can be compared fairly.</li>
+          <li>Defining an "ideal" bowler using the top 10% in each metric.</li>
+          <li>Scoring each bowler by their distance from this ideal using Euclidean distance.</li>
+          <li>Using k-means clustering to find natural groups of similar bowlers.</li>
+        </ul>
+        <h2>Why This Matters</h2>
+        <p>
+          Cricket stats are often skewed by era, match conditions, and longevity. By normalizing and clustering, I hope to provide a more objective, nuanced view of bowling greatness.
+        </p>
+        <h2>See the Code</h2>
+        <p>
+          The full analysis is in <code>test/analyze_bowlers.py</code> in test repository. Check it out if you're interested in cricket analytics or want to try to improve it.
+        </p>
+        <p>
+          <a href="https://github.com/rmjm1729/test" target="_blank" rel="noopener" style="font-weight:bold; color:#FF6F1F; text-decoration:underline;">View the code and data on GitHub &rarr;</a>
+        </p>
+      </section>
+      <footer class="site-footer">
+        <p>&copy; 2025 Srinivasa Ramanujam.</p>
+      </footer>
     </main>
   </div>
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
-    }
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-      }
-    });
-  </script>
 </body>
 </html>

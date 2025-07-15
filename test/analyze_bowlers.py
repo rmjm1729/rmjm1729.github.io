@@ -194,9 +194,32 @@ def euclidean(row):
     return np.linalg.norm(row.values - center)
 data['score'] = data_z.apply(euclidean, axis=1)
 
-# --- K-MEANS CLUSTERING OF BOWLERS ---
-N = len(data_z)
-n_clusters = max(2, int(np.sqrt(N)))
+
+
+# --- K-MEANS CLUSTERING OF BOWLERS (Elbow Method) ---
+import matplotlib.pyplot as plt
+
+# Elbow method to find optimal number of clusters
+inertia = []
+K_range = range(1, 11)
+for k in K_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(data_z)
+    inertia.append(km.inertia_)
+
+# Plot the elbow curve
+plt.figure(figsize=(7, 4))
+plt.plot(K_range, inertia, marker='o')
+plt.xlabel('Number of clusters (k)')
+plt.ylabel('Inertia (Sum of Squared Distances)')
+plt.title('Elbow Method For Optimal k')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Choose optimal k (elbow point) - user can visually inspect the plot
+# For automation, you can set n_clusters to the value where the elbow occurs, or prompt the user
+n_clusters = int(input('Enter the optimal number of clusters as seen from the elbow plot: '))
 kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
 data['cluster'] = kmeans.fit_predict(data_z)
 
@@ -215,19 +238,13 @@ print("\n--- Bowlers by Cluster ---")
 for clus in sorted(data['cluster'].unique()):
     print(f"\nCluster {clus} ({len(data[data['cluster'] == clus])} bowlers):")
 
-
-# Print all bowlers with their score and cluster
-print("\nAll bowlers with their scores and cluster assignments:")
-for idx, row in data.iterrows():
-    print(f"{row['Player']}: Score = {row['score']:.3f}, Cluster = {row['cluster']}")
-
-# Print bowlers grouped by cluster
 print("\n--- Bowlers by Cluster ---")
 for clus in sorted(data['cluster'].unique()):
+    print(f"\nCluster {clus} ({len(data[data['cluster'] == clus])} bowlers):")
     cluster_bowlers = data[data['cluster'] == clus]
-    print(f"\nCluster {clus} ({len(cluster_bowlers)} bowlers):")
-    for idx, row in cluster_bowlers.iterrows():
-        print(f"  {row['Player']}: Score = {row['score']:.3f}")
+    for player in cluster_bowlers['Player']:
+        print(f"  {player}")
+
 
 
 
