@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog: Cricket Analytics Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sidebar">
+    <a href="index.html" class="sidebar-title">srinivasa ramanujam</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="music.html">Music</a>
+      <a href="blog.html" class="active">Blog</a>
+    </nav>
+  </div>
+  <div class="content glass-box">
+    <h1>Analyzing Test Match Bowlers: My Cricket Analytics Project</h1>
+    <p><em>Posted July 15, 2025</em></p>
+    <p>
+      In this project, I'm building a data-driven system to compare and rank Test match bowlers across eras. The goal is to go beyond simple stats and use normalization, era adjustment, and clustering to find the best all-round performers in cricket history.
+    </p>
+    <h2>What I'm Doing</h2>
+    <ul>
+      <li>Collecting a comprehensive dataset of Test bowlers and their career stats.</li>
+      <li>Normalizing key metrics (average, strike rate, economy, wickets per match, 5-fors, 10-fors, career span).</li>
+      <li>Adjusting for era so bowlers from different periods can be compared fairly.</li>
+      <li>Defining an "ideal" bowler using the top 10% in each metric.</li>
+      <li>Scoring each bowler by their distance from this ideal using Euclidean distance.</li>
+      <li>Using k-means clustering to find natural groups of similar bowlers.</li>
+    </ul>
+    <h2>Why This Matters</h2>
+    <p>
+      Cricket stats are often skewed by era, match conditions, and longevity. By normalizing and clustering, I hope to provide a more objective, nuanced view of bowling greatness.
+    </p>
+    <h2>See the Code</h2>
+    <p>
+      The full analysis is in <code>test/analyze_bowlers.py</code> in my repository. Check it out if you're interested in cricket analytics or want to try your own experiments!
+    </p>
+  </div>
+</body>
+</html>
