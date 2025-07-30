@@ -7,18 +7,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>One last bargain:</h1>
-    </header>
-    <main class="container">
+  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  <div class="layout">
+    <aside class="sidebar">
+      <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
+      <p><em>Student of Physics & Math @ IISER Kolkata</em></p>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="content">
+      <section>
+        <h2>One last bargain:</h2>
         <p>The bustling city’s noise has faded, and the chatter of feet is slowly diminishing on the dense streets, but the midnight air in the studio is still thick with the ghosts of turpentine and, if I’m honest, sigh, doubt.</p>
         <p>There was a time these hands moved with a fire of their own. A brash, arrogant certainty. They knew the canvas before I did: every crevice in the paper, every drop of ink before it fell, commanding color and form with the grace of Messi on a European night. That fire brought acclaim and fortune, but more importantly, it brought a deadly sin- pride.</p>
         <p>Now, the fire is embers. The hands hesitate, as if paralyzed. The connection between mind and muscle, once a lightning strike, is now a distant echo. It’s a humbling, quiet truth to accept: the storm has passed. But even embers can be fanned one last time.</p>
         <p>Behind me, under that sheet, is my bargain with this truth. Every brushstroke was less a command and more a plea. I didn’t wrestle with it; I guided it, pouring in every last drop of experience, every ghost of a memory. It holds all that I was, and everything I am now.</p>
         <p>I used to believe I dictated the terms of beauty. Tonight, I know my service is simply to begin the conversation. Tomorrow, I will uncover it. Its fate, its voice, its reception… that part is no longer in my hands. It belongs to the light now. And for the first time in a long time, that feels like enough.</p>
+      </section>
+      <footer style="margin-top:2rem; color:#888; font-size:0.95em;">&copy; 2025 Srinivasa Ramanujam</footer>
     </main>
-    <footer>
-        &copy; 2025 Your Name
-    </footer>
+  </div>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = '🌙';
+      }
+    });
+  </script>
 </body>
 </html>
