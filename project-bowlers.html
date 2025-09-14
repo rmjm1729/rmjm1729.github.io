@@ -4,18 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project: Cricket Analytics</title>
+  <meta name="description" content="Analyzing Test match bowlers — cricket analytics project by Srinivasa Ramanujam.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* small local tweaks to match the new layout if style.css hasn't been updated yet */
+    :root{--muted:#51606a}
+    body {font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:#f7fafc; color:#0b1220;}
+    .site-wrapper{display:grid;grid-template-columns:260px 1fr;gap:24px;min-height:100vh;padding:28px}
+    .sidebar{padding:20px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.06);display:flex;flex-direction:column;gap:16px;position:sticky;top:28px}
+    .profile{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+    .profile-pic{width:100%;border-radius:8px;object-fit:cover}
+    nav ul{list-style:none;padding:0;margin:8px 0 0 0}
+    nav li{margin:10px 0}
+    nav a{color:inherit;text-decoration:none}
+    .hot{border-left:3px solid rgba(0,0,0,0.06);padding-left:12px}
+    .hot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+    .hot li{font-weight:600;color:var(--muted)}
+    .main-content{background:#fff;border-radius:12px;padding:22px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+    .glass-card{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9))}
+    .site-footer{margin-top:18px;color:var(--muted);font-size:0.95rem}
+    @media (max-width:960px){.site-wrapper{grid-template-columns:1fr;padding:16px}.hot{display:none}}
+  </style>
 </head>
 <body>
   <div class="site-wrapper">
-    <aside class="sidebar">
+    <aside class="sidebar" aria-labelledby="profile-title">
       <div class="profile">
         <img src="assets/profile.jpg" alt="Profile picture" class="profile-pic" />
-        <h2>Srinivasa Ramanujam</h2>
+        <h2 id="profile-title">Srinivasa Ramanujam</h2>
         <p class="pronouns">he/him</p>
-        <p><em>Student of Physics @IISER Kolkata</em></p>
+        <p><em>Student of Physics @ IISER Kolkata</em></p>
       </div>
-      <nav>
+
+      <nav aria-label="Primary">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
@@ -24,7 +45,16 @@
           <li><a href="blog.html">Blog</a></li>
         </ul>
       </nav>
+
+      <div class="hot" aria-label="Hot right now">
+        <h4 style="margin:0 0 8px 0">Hot right now</h4>
+        <ul>
+          <li>Daft Punk</li>
+          <li>Agam</li>
+        </ul>
+      </div>
     </aside>
+
     <main class="main-content glass-card">
       <h1>Analyzing Test Match Bowlers: My Cricket Analytics Project</h1>
       <p><em>Posted July 15, 2025</em></p>
@@ -58,5 +88,23 @@
       </footer>
     </main>
   </div>
+
+<script>
+/* Privacy-friendly analytics setup:
+   - If you want real server-side privacy-friendly analytics, use Plausible or Fathom:
+     Example Plausible (add this in <head> or here after uncommenting and replacing domain):
+     <script async defer data-domain="rmjm1729.github.io" src="https://plausible.io/js/plausible.js"></script>
+   - Fallback: localStorage-only counters (no external tracking).
+*/
+(function(){
+  // Local-only counters
+  const pageKey = 'local_pageviews_' + (location.pathname || 'home');
+  const previous = Number(localStorage.getItem(pageKey) || '0');
+  localStorage.setItem(pageKey, String(previous + 1));
+
+  // Optionally show a tiny console overview (no UI change)
+  console.info('[analytics] local page views for', location.pathname, localStorage.getItem(pageKey));
+})();
+</script>
 </body>
 </html>

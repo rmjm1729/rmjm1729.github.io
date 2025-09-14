@@ -1,92 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog | Srinivasa Ramanujam</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blog — Srinivasa Ramanujam</title>
+  <meta name="description" content="Blog posts by Srinivasa Ramanujam — music, projects, thoughts.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
   <div class="layout">
     <aside class="sidebar">
-      <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
+      <h1><a class="sidebar-home-link" href="index.html">Srinivasa Ramanujam</a></h1>
       <p><em>My Homepage</em></p>
-      <nav>
+
+      <nav aria-label="Primary">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="music.html">Music</a></li>
           <li><a href="projects.html">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html" aria-current="page">Blog</a></li>
         </ul>
       </nav>
     </aside>
+
     <main class="content">
       <section>
         <h2>Blog</h2>
+
         <div class="blog-list">
-          <article class="blog-excerpt">
+          <!-- Post 1 -->
+          <article class="blog-excerpt" data-key-prefix="numb">
             <div class="blog-meta">
-              <span class="blog-date">4 April 2025</span>
-              <span class="blog-likes">👍 <span id="likes-numb">0</span></span>
-              <span class="blog-comments">💬 <span id="comments-numb">0</span></span>
+              <time class="blog-date">4 April 2025</time>
+              <button class="like-btn" aria-label="Like post">👍 <span class="likes">0</span></button>
+              <button class="comment-btn" aria-label="Comments for post">💬 <span class="comments">0</span></button>
             </div>
-            <h3><a href="blog-numb.html">Numb – Why it resonates 24 years later</a></h3>
+            <h3><a href="blog-numb.html">Numb — Why it resonates 24 years later</a></h3>
             <p>The most compelling aspect of “Numb” is its lyrical depiction of identity crisis and emotional suffocation... (Click to read more)</p>
           </article>
-          <article class="blog-excerpt">
+
+          <!-- Post 2 -->
+          <article class="blog-excerpt" data-key-prefix="olb">
             <div class="blog-meta">
-              <span class="blog-date">16 July 2025</span>
-              <span class="blog-likes">👍 <span id="likes-olb">0</span></span>
-              <span class="blog-comments">💬 <span id="comments-olb">0</span></span>
+              <time class="blog-date">16 July 2025</time>
+              <button class="like-btn" aria-label="Like post">👍 <span class="likes">0</span></button>
+              <button class="comment-btn" aria-label="Comments for post">💬 <span class="comments">0</span></button>
             </div>
-          
-            </div>
-            <h3><a href="blog-post-4.html">One last bargain:</a></h3>
-            <p>The bustling city’s noise has faded, and the chatter of feet is slowly diminishing on the dense streets, but the midnight air in the studio is still thick with the ghosts of turpentine and, if I’m honest, sigh, doubt... (Click to read more)</p>
+            <h3><a href="blog-post-4.html">One last bargain</a></h3>
+            <p>The bustling city’s noise has faded, and the chatter of feet is slowly diminishing on the dense streets... (Click to read more)</p>
           </article>
-          <article class="blog-excerpt">
+
+          <!-- Post 3 -->
+          <article class="blog-excerpt" data-key-prefix="whip">
             <div class="blog-meta">
-              <span class="blog-date">31 July 2025</span>
-              <span class="blog-likes">👍 <span id="likes-whip">0</span></span>
-              <span class="blog-comments">💬 <span id="comments-whip">0</span></span>
+              <time class="blog-date">31 July 2025</time>
+              <button class="like-btn" aria-label="Like post">👍 <span class="likes">0</span></button>
+              <button class="comment-btn" aria-label="Comments for post">💬 <span class="comments">0</span></button>
             </div>
             <h3><a href="blog-post-1.html">Whiplash: My thoughts</a></h3>
             <p>"For mastery, you need perfection. For perfection, you need repetition."... (Click to read more)</p>
           </article>
+
         </div>
       </section>
     </main>
   </div>
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
-    }
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-      }
-    });
 
-    // Blog likes/comments counters (local only)
-    function updateBlogCounters() {
-      document.getElementById('likes-numb').textContent = localStorage.getItem('likes-numb') || '0';
-      document.getElementById('comments-numb').textContent = (JSON.parse(localStorage.getItem('comments-numb') || '[]')).length;
-      document.getElementById('likes-quantum').textContent = localStorage.getItem('likes-quantum') || '0';
-      document.getElementById('comments-quantum').textContent = (JSON.parse(localStorage.getItem('comments-quantum') || '[]')).length;
-      document.getElementById('likes-music').textContent = localStorage.getItem('likes-music') || '0';
-      document.getElementById('comments-music').textContent = (JSON.parse(localStorage.getItem('comments-music') || '[]')).length;
-    }
-    updateBlogCounters();
+  <script>
+    // Theme toggle (consistent behavior)
+    (function(){
+      const t = document.getElementById('theme-toggle');
+      const body = document.body;
+      const current = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+      body.classList.toggle('dark', current === 'dark');
+      t.textContent = current === 'dark' ? '☀️' : '🌙';
+      t.addEventListener('click', () => {
+        const dark = !body.classList.contains('dark');
+        body.classList.toggle('dark', dark);
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        t.textContent = dark ? '☀️' : '🌙';
+      });
+    })();
+
+    // Local likes & comments (per-post storage using data-key-prefix)
+    (function(){
+      function getKey(prefix, kind){
+        return `blog_${prefix}_${kind}`;
+      }
+
+      document.querySelectorAll('.blog-excerpt').forEach(article => {
+        const prefix = article.getAttribute('data-key-prefix') || 'post';
+        const likeBtn = article.querySelector('.like-btn');
+        const commentBtn = article.querySelector('.comment-btn');
+        const likesNode = article.querySelector('.likes');
+        const commentsNode = article.querySelector('.comments');
+
+        // Load saved values
+        const likes = Number(localStorage.getItem(getKey(prefix,'likes')) || 0);
+        const comments = JSON.parse(localStorage.getItem(getKey(prefix,'comments')) || '[]');
+
+        likesNode.textContent = likes;
+        commentsNode.textContent = comments.length;
+
+        // Like button behaviour (increments)
+        likeBtn.addEventListener('click', () => {
+          const newLikes = Number(localStorage.getItem(getKey(prefix,'likes')) || 0) + 1;
+          localStorage.setItem(getKey(prefix,'likes'), String(newLikes));
+          likesNode.textContent = newLikes;
+        });
+
+        // Comment button behaviour (simple prompt + store)
+        commentBtn.addEventListener('click', () => {
+          const text = prompt('Leave a comment (local only):');
+          if (!text) return;
+          const arr = JSON.parse(localStorage.getItem(getKey(prefix,'comments')) || '[]');
+          arr.push({text, ts: Date.now()});
+          localStorage.setItem(getKey(prefix,'comments'), JSON.stringify(arr));
+          commentsNode.textContent = arr.length;
+        });
+      });
+    })();
   </script>
 </body>
 </html>

@@ -1,110 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Numb – Why it resonates 24 years later | Blog | Srinivasa Ramanujam</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Numb – Why it resonates 24 years later | Blog | Srinivasa Ramanujam</title>
+<meta name="description" content="Blog: Numb by Linkin Park — reflection on identity crisis and why it still resonates.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7fafc; --card:#fff; --muted:#51606a; --accent:#06b6d4; --title:#0b1220; --glass: rgba(2,6,23,0.06);
+    --accent-2:#60a5fa;
+  }
+  .dark {
+    --bg:#071021; --card:#0b1220; --muted:#9aa6b2; --accent:#6ee7b7; --title:#e6eef3; --accent-2:#3aa0d9;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--title); transition:background .25s,color .25s;}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;grid-template-columns:260px 1fr;}
+  .sidebar{padding:20px;background:var(--card);border-radius:14px;box-shadow:0 10px 30px var(--glass);position:sticky;top:28px;display:flex;flex-direction:column;gap:18px}
+  .sidebar h1{margin:0;font-size:1.2rem}
+  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
+  .sidebar nav ul{list-style:none;padding:0;margin:0}
+  .sidebar nav li{margin:12px 0}
+  .sidebar a{color:var(--title)}
+
+  main.content{max-width:920px;margin:0 auto}
+  .card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 10px 30px var(--glass);margin-bottom:22px}
+  .card h2{margin-top:0}
+  .muted{color:var(--muted)}
+  blockquote{border-left:4px solid var(--accent);padding-left:12px;margin:16px 0;color:var(--muted);font-style:italic}
+
+  /* blog actions */
+  .blog-actions button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer}
+  .blog-actions{margin:12px 0}
+  .comments-section{margin-top:20px}
+  .comments-section form{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .comments-section input,.comments-section textarea{padding:8px;border:1px solid #ccc;border-radius:8px;font-family:inherit}
+  .comments-section button{align-self:flex-start;padding:6px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+
+  #theme-toggle{position:fixed;top:20px;right:20px;width:44px;height:44px;border:none;border-radius:50%;background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,0.06);cursor:pointer;font-size:18px}
+  @media(max-width:840px){
+    .layout{grid-template-columns:1fr;padding:16px}
+    .sidebar{position:static;width:100%;border-radius:10px}
+  }
+</style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-  <div class="layout">
-    <aside class="sidebar">
-      <h1>Srinivasa Ramanujam</h1>
-      <p><em>My Homepage</em></p>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="music.html">Music</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="index.html#projects">Projects</a></li>
-          <li><a href="index.html#cv">CV</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </aside>
-    <main class="content">
-      <section>
-        <h2>Numb – Why it resonates 24 years later</h2>
-        <p><em>Posted on 4 April 2025</em></p>
-        <div class="blog-actions">
-          <button id="like-btn">👍 Like (<span id="like-count">0</span>)</button>
-        </div>
-        <article>
-          <p>The most compelling aspect of “Numb” is its lyrical depiction of identity crisis and emotional suffocation. The lyrics indicate the frustration and internal conflict of everyone (you, me, the guy sitting beside the tree staring into the fire extinguisher in front of him) struggling to live up to the expectations imposed on them.</p>
-          <blockquote>“I'm tired of being what you want me to be<br>Feeling so faithless, lost under the surface”</blockquote>
-          <p>immediately sets the tone for the anthem: a confessional outpouring of a youth in despair rooted in the inability to conform. These lines are both specific and universal, allowing me to project my experiences of being an 'Imposter' frog in this infinite square well of misery.</p>
-          <blockquote>“All I want to do<br>Is be more like me and be less like you.”</blockquote>
-          <p>A cry for self-expression, for autonomy over one’s decisions, capturing the generational tension between individuality and conformity. Whether read as a teenager speaking to an overbearing parent, a student under the pressure of academic performance, or even a creative soul fighting against societal norms, the plea is clear: let me be myself. When I heard this in 11th grade, it was the first, freshman in college, the second and currently the third.</p>
-          <p>The repeated use of the word “Numb” emphasises the fact that society asks you to take it in while it shoves more and more. Emotional numbness is presented as both a symptom and a defense mechanism—one becomes numb not only because of trauma or stress, but also because it is the only way to survive under relentless scrutiny and judgment. The song has conversed to me over more than a hundred streams that being Numb isn't a weakness. It reflects resilience through detachment.</p>
-          <p>Numb is an anthem for us, felt misunderstood, overburdened, and burnt out. It reflects the dissonance between creative trailblazers who wanted to be and who they were being forced to become.<br>RIP Chester</p>
-        </article>
-        <div class="comments-section">
-          <h3>Comments</h3>
-          <ul id="comments-list"></ul>
-          <form id="comment-form">
-            <input type="text" id="comment-name" placeholder="Your name" required />
-            <textarea id="comment-text" placeholder="Your comment" required></textarea>
-            <button type="submit">Add Comment</button>
-          </form>
-        </div>
-        <p><a href="blog.html">← Back to Blog</a></p>
-      </section>
-    </main>
-  </div>
-  <script>
-    // Theme toggle
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
+<button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+<div class="layout">
+  <aside class="sidebar">
+    <h1><a href="index.html">Srinivasa Ramanujam</a></h1>
+    <p><em>My Homepage</em></p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <div class="card">
+      <h2>Numb – Why it resonates 24 years later</h2>
+      <p class="muted">Posted on 4 April 2025</p>
+      <div class="blog-actions">
+        <button id="like-btn">👍 Like (<span id="like-count">0</span>)</button>
+      </div>
+      <article>
+        <p>The most compelling aspect of “Numb” is its lyrical depiction of identity crisis and emotional suffocation. The lyrics indicate the frustration and internal conflict of everyone (you, me, the guy sitting beside the tree staring into the fire extinguisher in front of him) struggling to live up to the expectations imposed on them.</p> <blockquote>“I'm tired of being what you want me to be<br>Feeling so faithless, lost under the surface”</blockquote> <p>immediately sets the tone for the anthem: a confessional outpouring of a youth in despair rooted in the inability to conform. These lines are both specific and universal, allowing me to project my experiences of being an 'Imposter' frog in this infinite square well of misery.</p> <blockquote>“All I want to do<br>Is be more like me and be less like you.”</blockquote> <p>A cry for self-expression, for autonomy over one’s decisions, capturing the generational tension between individuality and conformity. Whether read as a teenager speaking to an overbearing parent, a student under the pressure of academic performance, or even a creative soul fighting against societal norms, the plea is clear: let me be myself. When I heard this in 11th grade, it was the first, freshman in college, the second and currently the third.</p> <p>The repeated use of the word “Numb” emphasises the fact that society asks you to take it in while it shoves more and more. Emotional numbness is presented as both a symptom and a defense mechanism—one becomes numb not only because of trauma or stress, but also because it is the only way to survive under relentless scrutiny and judgment. The song has conversed to me over more than a hundred streams that being Numb isn't a weakness. It reflects resilience through detachment.</p> <p>Numb is an anthem for us, felt misunderstood, overburdened, and burnt out. It reflects the dissonance between creative trailblazers who wanted to be and who they were being forced to become.<br>RIP Chester</p>
+      </article>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <ul id="comments-list"></ul>
+        <form id="comment-form">
+          <input type="text" id="comment-name" placeholder="Your name" required />
+          <textarea id="comment-text" placeholder="Your comment" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+      </div>
+      <p><a href="blog.html">← Back to Blog</a></p>
+    </div>
+    <footer style="text-align:center;margin-top:18px;color:var(--muted)">© 2025 Srinivasa Ramanujam</footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  // dark mode toggle for <html>
+  const KEY = 'theme';
+  const BTN = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  function getInitialTheme(){
+    const saved = localStorage.getItem(KEY);
+    if(saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function applyTheme(theme){
+    root.classList.toggle('dark', theme==='dark');
+    BTN.textContent = theme==='dark'?'☀️':'🌙';
+  }
+  let theme = getInitialTheme();
+  applyTheme(theme);
+  BTN.addEventListener('click', ()=>{
+    theme = root.classList.contains('dark')?'light':'dark';
+    localStorage.setItem(KEY, theme);
+    applyTheme(theme);
+  });
+
+  // likes
+  const likeBtn=document.getElementById('like-btn');
+  const likeCount=document.getElementById('like-count');
+  let likes=parseInt(localStorage.getItem('likes-numb')||'0');
+  likeCount.textContent=likes;
+  likeBtn.addEventListener('click',()=>{
+    likes++; likeCount.textContent=likes;
+    localStorage.setItem('likes-numb',likes);
+  });
+
+  // comments
+  const commentForm=document.getElementById('comment-form');
+  const commentsList=document.getElementById('comments-list');
+  let comments=JSON.parse(localStorage.getItem('comments-numb')||'[]');
+  function renderComments(){
+    commentsList.innerHTML='';
+    comments.forEach(c=>{
+      const li=document.createElement('li');
+      li.innerHTML=`<strong>${c.name}:</strong> ${c.text}`;
+      commentsList.appendChild(li);
+    });
+  }
+  renderComments();
+  commentForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=document.getElementById('comment-name').value.trim();
+    const text=document.getElementById('comment-text').value.trim();
+    if(name && text){
+      comments.push({name,text});
+      localStorage.setItem('comments-numb',JSON.stringify(comments));
+      renderComments();
+      commentForm.reset();
     }
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-      }
-    });
-    // Like button (local only)
-    const likeBtn = document.getElementById('like-btn');
-    const likeCount = document.getElementById('like-count');
-    let likes = parseInt(localStorage.getItem('likes-numb') || '0');
-    likeCount.textContent = likes;
-    likeBtn.addEventListener('click', () => {
-      likes++;
-      likeCount.textContent = likes;
-      localStorage.setItem('likes-numb', likes);
-    });
-    // Comments (local only)
-    const commentForm = document.getElementById('comment-form');
-    const commentsList = document.getElementById('comments-list');
-    let comments = JSON.parse(localStorage.getItem('comments-numb') || '[]');
-    function renderComments() {
-      commentsList.innerHTML = '';
-      comments.forEach(c => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${c.name}:</strong> ${c.text}`;
-        commentsList.appendChild(li);
-      });
-    }
-    renderComments();
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('comment-name').value.trim();
-      const text = document.getElementById('comment-text').value.trim();
-      if (name && text) {
-        comments.push({ name, text });
-        localStorage.setItem('comments-numb', JSON.stringify(comments));
-        renderComments();
-        commentForm.reset();
-      }
-    });
-  </script>
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,109 +1,216 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Srinivasa Ramanujam — Home</title>
+<meta name="description" content="Srinivasa Ramanujam — Physics · Data · Code. Student at IISER Kolkata.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7fafc; --card:#fff; --muted:#51606a; --accent:#06b6d4; --title:#0b1220; --glass: rgba(2,6,23,0.06);
+  }
+  /* Target body.dark explicitly so CSS vars override reliably */
+  body.dark {
+    --bg:#071021; --card:#0b1220; --muted:#9aa6b2; --accent:#6ee7b7; --title:#e6eef3;
+  }
 
-  <title>Srinivasa Ramanujam | rmjm1729</title>
-  <link rel="stylesheet" href="style.css" />
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:var(--title); transition:background .25s,color .25s;}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* layout */
+  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;align-items:flex-start; grid-template-columns: 260px 1fr;}
+  .sidebar{padding:20px;background:var(--card);border-radius:14px;box-shadow:0 10px 30px var(--glass);position:sticky;top:28px;align-self:start;display:flex;flex-direction:column;gap:18px}
+  .sidebar h1{margin:0;font-size:1.2rem}
+  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
+  .sidebar nav ul{list-style:none;padding:0;margin:0;display:block}
+  .sidebar nav li{margin:12px 0}
+  .sidebar a{color:var(--title)}
+
+  /* "Hot Right Now" */
+  .hot {
+    border-left: 3px solid rgba(0,0,0,0.06);
+    padding-left: 12px;
+    margin-top: 6px;
+  }
+  .hot h4{margin:0 0 8px 0;font-size:0.95rem}
+  .hot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .hot li{font-weight:600;color:var(--muted);font-size:0.95rem}
+
+  main.content{max-width:900px;margin:0 auto}
+  .hero{padding:28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));box-shadow:0 12px 40px rgba(2,6,23,0.06)}
+  body.dark .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+  .hero h2{font-size:2.4rem;margin:0 0 10px}
+  .hero p{color:var(--muted);font-size:1.05rem;line-height:1.5}
+  .buttons{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;border:none}
+  .primary{background:linear-gradient(90deg,var(--accent),#60a5fa);color:#04201f}
+  .ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--title)}
+
+  section{margin-top:22px}
+  h3{margin-bottom:8px}
+  .projects-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:14px;
+    margin-top:12px;
+  }
+  .project-card{
+    background:var(--card);
+    border-radius:12px;
+    padding:14px;
+    box-shadow:0 8px 28px rgba(2,6,23,0.04);
+    transition:transform .18s, box-shadow .18s;
+  }
+  .project-card:hover{transform:translateY(-6px); box-shadow:0 12px 40px rgba(2,6,23,0.06)}
+  .project-card h4{margin:0 0 6px}
+  .project-card p{margin:0 0 8px;color:var(--muted)}
+  .project-actions{display:flex;gap:10px;align-items:center}
+
+  .muted{color:var(--muted)}
+
+  #theme-toggle{position:fixed;right:20px;top:20px;border-radius:50%;width:44px;height:44px;border:none;background:var(--card);box-shadow:0 6px 18px rgba(2,6,23,0.06);cursor:pointer;font-size:18px;z-index:50}
+
+  @media (max-width:840px){
+    .layout{grid-template-columns:1fr;padding:16px}
+    .sidebar{width:100%;position:static;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+    .hot{display:none} /* hide hot on small screens */
+    .hero h2{font-size:1.6rem}
+  }
+</style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
 
   <div class="layout">
-    <aside class="sidebar">
-  <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
-  <p><em>Student of Math & Physics @ IISER Kolkata</em></p>
+    <aside class="sidebar" aria-labelledby="sidebar-title">
+      <div>
+        <h1 id="sidebar-title"><a href="index.html">Srinivasa Ramanujam</a></h1>
+        <p><em>Physics, Mathematics & Computer Science @ IISER Kolkata</em></p>
+      </div>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="music.html">Music</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="blog.html">Blog</a></li>
-    </ul>
-  </nav>
+      <nav aria-label="Main menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </nav>
 
-</aside>
+      <div class="hot" aria-label="Hot right now">
+        <h4>Hot right now</h4>
+        <ul>
+          <li>Daft Punk</li>
+          <li>Agam</li>
+        </ul>
+      </div>
+    </aside>
 
     <main class="content">
-      <section id="about">
-        <h2>About Me</h2>
-        <p>
-          This site is perpetually under construction.
-          I'm a third-year student at IISER Kolkata, currently majoring in Mathematics & Statistics. I am currently studying Quantum Algorithms and Information. I also have a keen interest in Graph Theory and Relativity.
-    I enjoy exploring the interplay between physics, mathematics, and computing.
-    Outside academics, I read history, quiz competitively,play cricket and watch football. I also play the piano and guitar. 
-  </p>
-        </p>
+      <section class="hero">
+        <h2>Hallo! ich bin Ramanujam !</h2>
+        <p class="muted">Third-year Physics student at IISER Kolkata. I'm interested in Quantum Computing and Algorithms, Statistics and Graph Theory and sometimes make music.</p>
+        <div class="buttons">
+          <a class="btn primary" href="projects.html">Projects</a>
+          <a class="btn primary" href="about.html">More about Me!</a>
+          <a class="btn primary" href="music.html">Music</a>
+          <a class="btn ghost" href="assets/Ram_CV.pdf" target="_blank">Download CV</a>
+        </div>
       </section>
 
       <section id="projects">
-        <h2>Projects</h2>
-        <ul>
-          <li><strong>K Means Clustering to categorize Test Bowlers</strong> – A project trying to find who the best Test Bowler is and typecast them based on k means clustering. More in the blog</li>
-          <li><strong>Quantum Computing</strong> – Studied Bell States and Algorithms under the guidance of Dr. Prabha Mandayam @ IIT-M</li>
-          <li><strong>Sentence Predictor using Markov Chains</strong> – A simple text generator that uses Markov Chains to predict and generate sentences based on a given text. <a href="project-markov.html">Read more</a></li>
-        </ul>
-      </section>
+        <h3>Projects</h3>
 
-      <section id="cv">
-        <h2>CV</h2>
-        <p><a href="assets/Ram_CV.pdf" target="_blank">Download Resume (PDF)</a></p>
+        <div class="projects-grid">
+          <article class="project-card">
+            <h4>K-Means Clustering to categorize Test Bowlers</h4>
+            <p>Cricket analytics and era-adjusted normalization.</p>
+            <div class="project-actions">
+              <a class="ghost" href="project-bowlers.py">Read more</a>
+              <a class="ghost" href="https://github.com/rmjm1729/test" target="_blank" rel="noopener">Code</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h4>Quantum Computing and Algorithms</h4>
+            <p>Bell states & algorithms (Summer 2025 @ IIT-M).</p>
+            <div class="project-actions">
+              <a class="ghost" href="project-quantum.html">Read more</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h4>Sentence Predictor (Markov Chains)</h4>
+            <p>Simple text generator using Markov chains.</p>
+            <div class="project-actions">
+              <a class="ghost" href="project-markov.html">Read more</a>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section id="contact">
-        <h2>Contact</h2>
+        <h3>Contact</h3>
         <p>Email: <a href="mailto:msr23ms242@iiserkol.ac.in">msr23ms242@iiserkol.ac.in</a></p>
-        <p>
-          <a href="https://github.com/rmjm1729" target="_blank" rel="noopener">GitHub</a> • 
-          <a href="https://www.linkedin.com/in/srinivasa-ramanujam-89aabb287/" target="_blank" rel="noopener">LinkedIn</a>
-        </p>
       </section>
+
       <section id="visitor">
-        <h2>Visitor Country Counter</h2>
+        <h3>Visitor Country Counter</h3>
         <p id="country-counter">Loading...</p>
       </section>
     </main>
   </div>
 
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
+<script>
+(function(){
+  // Theme logic (self-contained and robust)
+  const KEY = 'theme';
+  const BTN = document.getElementById('theme-toggle');
 
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
+  function getInitialTheme() {
+    const saved = localStorage.getItem(KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    BTN.textContent = theme === 'dark' ? '☀️' : '🌙';
+    BTN.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+
+  const initial = getInitialTheme();
+  applyTheme(initial);
+
+  BTN.addEventListener('click', () => {
+    const now = document.body.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem(KEY, now);
+    applyTheme(now);
+  });
+
+  // Visitor counter fallback (local-only or ipapi)
+  (async function updateCountry(){
+    const el = document.getElementById('country-counter');
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if (!res.ok) throw new Error('api');
+      const js = await res.json();
+      const cn = js.country_name || 'Unknown';
+      const counts = JSON.parse(localStorage.getItem('countryCounts') || '{}');
+      counts[cn] = (counts[cn] || 0) + 1;
+      localStorage.setItem('countryCounts', JSON.stringify(counts));
+      el.textContent = Object.entries(counts).map(([c,n])=>`${c}: ${n}`).join(', ');
+    } catch (e) {
+      const v = (Number(localStorage.getItem('visits') || '0') + 1);
+      localStorage.setItem('visits', String(v));
+      el.textContent = `Local visits: ${v} (IP API unavailable)`;
     }
-
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-      }
-    });
-
-    // Visitor country counter
-    async function updateCountryCounter() {
-      try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        const country = data.country_name || 'Unknown';
-        let counts = JSON.parse(localStorage.getItem('countryCounts') || '{}');
-        counts[country] = (counts[country] || 0) + 1;
-        localStorage.setItem('countryCounts', JSON.stringify(counts));
-        document.getElementById('country-counter').textContent = Object.entries(counts).map(([c, n]) => `${c}: ${n}`).join(', ');
-      } catch (e) {
-        document.getElementById('country-counter').textContent = 'Visitor counter unavailable';
-      }
-    }
-    updateCountryCounter();
-  </script>
+  })();
+})();
+</script>
 </body>
 </html>

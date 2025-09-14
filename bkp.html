@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your Name — Portfolio</title>
+<meta name="description" content="Personal site / portfolio" />
+
+<!-- Basic styles: clean, responsive, accessible -->
+<style>
+  :root{
+    --bg: #0f1720;
+    --card: #0b1220;
+    --muted: #9aa6b2;
+    --accent: #6ee7b7;
+    --glass: rgba(255,255,255,0.03);
+    color-scheme: dark;
+  }
+  [data-theme="light"]{
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --muted: #4b5563;
+    --accent: #0ea5a6;
+    --glass: rgba(0,0,0,0.03);
+    color-scheme: light;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+  body{background:linear-gradient(180deg,var(--bg),#07101a);color:#e6eef3;line-height:1.45;-webkit-font-smoothing:antialiased;padding:24px;}
+
+  .container{max-width:1000px;margin:0 auto;padding:24px;}
+
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px;}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{
+    width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;
+    box-shadow:0 6px 18px rgba(2,6,23,0.6);
+  }
+  h1{font-size:clamp(20px,3vw,28px);margin:0}
+  p.lead{margin:0;color:var(--muted);font-size:0.95rem}
+
+  .controls{display:flex;gap:8px;align-items:center}
+  button.btn{
+    background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:inherit;cursor:pointer;
+  }
+  button.btn:hover{transform:translateY(-2px)}
+
+  main{display:grid;grid-template-columns:1fr;gap:20px}
+  .hero{display:flex;gap:20px;align-items:center;padding:20px;border-radius:14px;background:linear-gradient(180deg,var(--card),rgba(0,0,0,0.03));box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+  .hero-left{flex:1}
+  .hero-right{width:180px;min-width:140px}
+  .avatar{
+    width:100%;aspect-ratio:1/1;border-radius:14px;display:block;background:linear-gradient(135deg,#111827,#1f2937);
+    border:1px solid rgba(255,255,255,0.03);box-shadow:inset 0 -8px 24px rgba(0,0,0,0.4);
+  }
+  .cta{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+  a.primary{background:linear-gradient(90deg,var(--accent),#60a5fa);padding:10px 14px;border-radius:10px;color:#04201f;text-decoration:none;font-weight:600}
+  a.ghost{padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);text-decoration:none}
+
+  section.card{padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+
+  .project{padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+  .muted{color:var(--muted);font-size:0.95rem}
+  footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
+
+  /* small screens */
+  @media (max-width:720px){
+    header{flex-direction:column;align-items:flex-start}
+    .hero{flex-direction:column}
+    .hero-right{width:100%}
+  }
+</style>
+</head>
+<body data-theme="dark">
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">YR</div>
+        <div>
+          <h1>Your Name</h1>
+          <p class="lead">Physics · Data · Code — student @ IISER • Chennai roots • piano & guitar</p>
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <button class="btn" id="themeToggle" aria-pressed="false" title="Toggle dark/light">Toggle theme</button>
+        <a class="btn" href="#projects">Projects</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero card" aria-label="Intro">
+        <div class="hero-left">
+          <h2>Hi — I'm Your Name.</h2>
+          <p class="muted">Student of physics, data science & mathematics. I build simulation code, small web tools, and obsess over clean visualizations.</p>
+          <div class="cta">
+            <a class="primary" href="#projects">See projects</a>
+            <a class="ghost" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="avatar" role="img" aria-label="Avatar placeholder"></div>
+        </div>
+      </section>
+
+      <section id="projects" class="card" aria-labelledby="projects-title">
+        <h3 id="projects-title">Selected Projects</h3>
+        <div class="grid" id="projectGrid">
+          <article class="project">
+            <h4>Project A — ODE solver</h4>
+            <p class="muted">A fast RK4 C solver with plotting client & comparison against analytical solutions.</p>
+            <p><strong>Tech:</strong> C, Python, matplotlib</p>
+          </article>
+
+          <article class="project">
+            <h4>Project B — Cricket stats</h4>
+            <p class="muted">Player matchup visualizer and expected-value models for batting order decisions.</p>
+            <p><strong>Tech:</strong> Python, Dash</p>
+          </article>
+
+          <!-- duplicate block you can copy/paste -->
+        </div>
+      </section>
+
+      <section id="about" class="card">
+        <h3>About</h3>
+        <p class="muted">Short about you. Mention interests (music, films), what you're learning, and what people can contact you about (freelance, collaboration, projects).</p>
+      </section>
+
+      <section id="contact" class="card" aria-labelledby="contact-title">
+        <h3 id="contact-title">Contact</h3>
+        <p class="muted">This demo form is client-only — to receive messages, either hook this to Formspree / Netlify Forms / a tiny server or change link to mailto.</p>
+
+        <form id="contactForm" onsubmit="return false" style="display:grid;gap:8px;max-width:520px">
+          <label>
+            <span class="muted">Name</span>
+            <input name="name" required placeholder="Your name" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+          </label>
+          <label>
+            <span class="muted">Message</span>
+            <textarea name="message" required rows="4" placeholder="Hi — let's collaborate" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea>
+          </label>
+          <div style="display:flex;gap:10px">
+            <button id="sendBtn" class="btn">Preview message</button>
+            <button id="resetBtn" type="reset" class="btn">Reset</button>
+          </div>
+        </form>
+
+      </section>
+
+      <footer>
+        <div>Made with curiosity and too much coffee • <span id="year"></span></div>
+      </footer>
+    </main>
+  </div>
+
+<script>
+  // small interactive bits: theme toggle, contact preview
+  (function(){
+    const body = document.body;
+    const toggle = document.getElementById('themeToggle');
+    const send = document.getElementById('sendBtn');
+    const form = document.getElementById('contactForm');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // toggle theme (persist in localStorage)
+    const saved = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? 'Light' : 'Dark';
+
+    toggle.addEventListener('click', () => {
+      const cur = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', cur);
+      localStorage.setItem('theme', cur);
+      toggle.textContent = cur === 'dark' ? 'Light' : 'Dark';
+    });
+
+    send.addEventListener('click', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = data.get('name') || 'Anon';
+      const msg = data.get('message') || '';
+      alert("Message preview:\\n\\nFrom: " + name + "\\n\\n" + msg);
+    });
+  })();
+</script>
+</body>
+</html>

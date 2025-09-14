@@ -1,64 +1,252 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About |Srinivasa Ramanujam</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — Srinivasa Ramanujam</title>
+<meta name="description" content="About Srinivasa Ramanujam — student, musician, coder.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7fafc; --card:#fff; --muted:#51606a; --accent:#06b6d4; --title:#0b1220; --glass: rgba(2,6,23,0.06);
+    --accent-2:#60a5fa;
+  }
+  /* changed from body.dark to .dark so variables apply to root (html) */
+  .dark {
+    --bg:#071021; --card:#0b1220; --muted:#9aa6b2; --accent:#6ee7b7; --title:#e6eef3; --accent-2:#3aa0d9;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:var(--title); transition:background .25s,color .25s;}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Layout */
+  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;align-items:flex-start; grid-template-columns:260px 1fr;}
+  .sidebar{padding:20px;background:var(--card);border-radius:14px;box-shadow:0 10px 30px var(--glass);position:sticky;top:28px;display:flex;flex-direction:column;gap:18px}
+  .sidebar h1{margin:0;font-size:1.2rem}
+  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
+  .sidebar nav ul{list-style:none;padding:0;margin:0}
+  .sidebar nav li{margin:12px 0}
+  .sidebar a{color:var(--title)}
+
+  .hot {border-left:3px solid rgba(0,0,0,0.06);padding-left:12px;margin-top:6px}
+  .hot h4{margin:0 0 8px 0;font-size:0.95rem}
+  .hot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .hot li{font-weight:600;color:var(--muted);font-size:0.95rem}
+
+  main.content{max-width:980px;margin:0 auto}
+  .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 30px var(--glass);margin-bottom:18px}
+  .hero{display:flex;gap:18px;align-items:center;padding:18px}
+  .avatar{width:120px;height:120px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#04201f;font-weight:700;font-size:28px;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+  .hero h2{margin:0 0 6px}
+  .muted{color:var(--muted)}
+
+  /* Achievements */
+  .achievements{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .achievement{background:linear-gradient(90deg,rgba(0,0,0,0.02),rgba(0,0,0,0.01));padding:8px 12px;border-radius:999px;font-weight:700;color:var(--muted);font-size:0.95rem}
+
+  /* Timeline */
+  .timeline{margin-top:14px;border-left:2px solid rgba(0,0,0,0.06);padding-left:18px}
+  .timeline-item{margin:12px 0;position:relative;padding-left:12px}
+  .timeline-item::before{content:'';position:absolute;left:-11px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(6,182,212,0.06)}
+  .timeline-item h4{margin:0;font-size:1rem}
+  .timeline-item p{margin:4px 0 0;color:var(--muted);font-size:0.95rem}
+  .timeline-item .meta{margin-top:6px;font-size:0.92rem;color:var(--muted)}
+
+  /* Suggested lists */
+  .suggest {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:10px}
+  .suggest .box{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .suggest h4{margin:0 0 8px 0}
+
+  /* In pictures (this one image is small) */
+  .photo-box img {
+    width: 100%;
+    max-width: 180px;   /* visual preference you set */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Contact CTA */
+  .cta-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;border:none}
+  .primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04201f}
+  .ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--title)}
+
+  /* responsive */
+  @media (max-width:920px){
+    .layout{grid-template-columns:1fr;padding:16px}
+    .hero{flex-direction:column;align-items:flex-start}
+    .avatar{width:96px;height:96px}
+    .hot{display:none}
+    .photo-box img{max-width:100px}
+  }
+</style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
 
   <div class="layout">
-    <aside class="sidebar">
-      <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
-      <p><em>My Homepage</em></p>
+    <aside class="sidebar" aria-labelledby="sidebar-title">
+      <div>
+        <h1 id="sidebar-title"><a href="index.html">Srinivasa Ramanujam</a></h1>
+        <p><em>My Homepage</em></p>
+      </div>
 
-      <nav>
+      <nav aria-label="Primary">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
           <li><a href="music.html">Music</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="blog.html">Blog</a></li>
         </ul>
       </nav>
-</aside>
-   
+
+      <!-- Sidebar Hot/Now (kept) -->
+      <div class="hot" aria-label="Hot right now">
+        <h4>Hot right now</h4>
+        <ul>
+          <li>Daft Punk</li>
+          <li>Agam</li>
+        </ul>
+      </div>
+    </aside>
 
     <main class="content">
-      <section>
-        <h2>About Me</h2>
-        <p>
-          I'm a third-year student at IISER Kolkata, currently studying Quantum Algorithms. I also have a keen interest in Graph Theory and Relativity.
-        </p>
-        <p>
-          Beyond academics, I read a lot of history and quiz regularly. I was part of the contingent which won IICM 2024 (Inter IISER IISc NISER CEBS Culturals Meet). I also enjoy playing cricket and watching football.
-          Music plays a huge role in my life — I play both piano and guitar, and I’m always discovering new albums. Lot of my thoughts/Blogs are based on conversations with my friends
-        </p>
-      </section>
+      <!-- Hero with picture -->
+      <div class="card hero" aria-label="About hero">
+        <div class="avatar" aria-hidden="false">
+          <!-- Replace the src if you store avatar elsewhere -->
+          <img src="assets/pfp.jpg" alt="Srinivasa Ramanujam">
+        </div>
+
+        <div>
+          <h2>Srinivasa Ramanujam</h2>
+          <p class="muted">Third-year BS-MS student (Physics) @ IISER Kolkata.</p>
+
+          <div class="cta-row" style="margin-top:10px">
+            <a class="btn primary" href="mailto:msr23ms242@iiserkol.ac.in">Email me</a>
+            <a class="btn ghost" href="assets/Ram_CV.pdf" target="_blank">Download CV</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements (only specified items) -->
+      <div class="card">
+        <h3>Achievements</h3>
+        <div class="achievements" aria-hidden="false" aria-label="Achievements">
+          <div class="achievement">Inspire Scholarship — DST, Govt. of India</div>
+          <div class="achievement">Isshinryu Karate — Dan II Black Belt (2019)</div>
+          <div class="achievement">IICM 2024 — Gold Medal (Team Quiz)</div>
+        </div>
+
+        <h4 style="margin-top:14px">Timeline</h4>
+        <div class="timeline" role="list">
+          <div class="timeline-item" role="listitem">
+            <h4>2008–2021 — PSBB K.K. Nagar</h4>
+            <p class="muted">KG–Grade 10 at PSBB K.K. Nagar.</p>
+          </div>
+
+          <div class="timeline-item">
+            <h4>2021–2023 — PSBB Nungambakkam</h4>
+            <p class="muted">Grade 11 & 12: at PSBB Nungambakkam.</p>
+            <div class="meta">Quiz Club Secretary (2022–23)</div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>2023–present — BS-MS @ IISER Kolkata</h4>
+            <p class="muted">Undergraduate BS-MS Major: Physics & Minor: Mathematics and Statistics & Computation & Data Science.</p>
+            <div class="meta">IISERK Quiz Club — Convener (2024–25)</div>
+            <div class="meta" style="margin-top:6px">Web developer for Identity (2023–24): <a href="https://www.iiserkol.ac.in/~maths.club/" target="_blank" rel="noopener">website</a></div>
+          </div>
+        </div>
+      </div>
+
+     <!-- In Pictures -->
+  <div class="card">
+  <h3>In Pictures</h3>
+  <div class="photo-box">
+    <img src="assets/img1.jpg" alt="Aurafarming in the fog">
+  </div>
+</div>
+
+      <!-- Recommendations (unchanged) -->
+      <div class="card">
+        <h3>Recommendations</h3>
+        <div class="suggest">
+          <div class="box">
+            <h4>Suggested reading</h4>
+            <ul>
+              <li>No Longer Human - Osamu Dazai</li>
+              <li>A Short History of Nearly Everything - Bill Bryson</li>
+              <li>A Brief History of Time - Stephen Hawking</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4>Suggested watches</h4>
+            <ul>
+              <li>Nayak (1966)</li>
+              <li>Panchathanthiram (2001)</li>
+              <li>The Matrix (1999)</li>
+              <li>Mouna Ragam (1986)</li>
+              <li>OK Kanmani (2015)</li>
+              <li>Gone Girl (2014)</li>
+              <li>Soul (2020)</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4>Suggested artists</h4>
+            <ul>
+              <li>The Beatles</li>
+              <li>Pink Floyd</li>
+              <li>Daft Punk — Random Access Memories</li>
+              <li>Vijay Antony</li>
+              <li>Linkin Park</li>
+              <li>Billy Joel</li>
+              <li>Elton John</li>
+              <li>A. R. Rahman</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer style="text-align:center;margin-top:18px;color:var(--muted)">© 2025 Srinivasa Ramanujam</footer>
     </main>
   </div>
 
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
+<script>
+(function(){
+  // Theme toggle now adds/removes 'dark' on the <html> element so html and body share vars
+  const KEY = 'theme';
+  const BTN = document.getElementById('theme-toggle');
+  const root = document.documentElement; // <html>
 
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
-    }
+  function getInitialTheme() {
+    const saved = localStorage.getItem(KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
 
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-      }
-    });
-  </script>
+  function applyTheme(theme) {
+    root.classList.toggle('dark', theme === 'dark'); // <-- important change
+    BTN.textContent = theme === 'dark' ? '☀️' : '🌙';
+    BTN.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+
+  const initial = getInitialTheme();
+  applyTheme(initial);
+
+  BTN.addEventListener('click', () => {
+    const now = root.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem(KEY, now);
+    applyTheme(now);
+  });
+})();
+</script>
 </body>
 </html>

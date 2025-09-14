@@ -1,79 +1,401 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Music |Srinivasa Ramanujam</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Music — Srinivasa Ramanujam</title>
+<meta name="description" content="Music, recordings and projects by Srinivasa Ramanujam.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7fafc;
+    --card:#fff;
+    --muted:#51606a;
+    --accent:#06b6d4;
+    --title:#0b1220;
+    --glass: rgba(2,6,23,0.06);
+    --accent-2:#60a5fa;
+    --transition-speed: .25s;
+  }
+
+  /* When html has .dark, variables switch site-wide */
+  html.dark{
+    --bg:#071021;
+    --card:#0b1220;
+    --muted:#9aa6b2;
+    --accent:#6ee7b7;
+    --title:#e6eef3;
+    --accent-2:#3aa0d9;
+  }
+
+  *{box-sizing:border-box}
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: var(--bg);
+    color: var(--title);
+    transition: background var(--transition-speed), color var(--transition-speed);
+  }
+
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Layout */
+  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;align-items:flex-start; grid-template-columns:260px 1fr;}
+  .sidebar{
+    padding:20px;
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 10px 30px var(--glass);
+    position:sticky; top:28px;
+    display:flex; flex-direction:column; gap:18px;
+    transition: background var(--transition-speed);
+  }
+  .sidebar h1{margin:0;font-size:1.2rem}
+  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
+  .sidebar nav ul{list-style:none;padding:0;margin:0}
+  .sidebar nav li{margin:12px 0}
+  .sidebar a{color:var(--title)}
+
+  .hot {border-left:3px solid rgba(0,0,0,0.06);padding-left:12px;margin-top:6px}
+  .hot h4{margin:0 0 8px 0;font-size:0.95rem}
+  .hot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .hot li{font-weight:600;color:var(--muted);font-size:0.95rem}
+
+  main.content{max-width:980px;margin:0 auto}
+  .card{
+    background:var(--card);
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 10px 30px var(--glass);
+    margin-bottom:18px;
+    transition: background var(--transition-speed), color var(--transition-speed);
+  }
+
+  h2{margin-top:0}
+  .muted{color:var(--muted)}
+
+  /* Track list */
+  .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px}
+  .track{
+    display:flex;gap:12px;padding:12px;border-radius:10px;
+    align-items:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+    box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    transition: background var(--transition-speed), transform .12s;
+  }
+  html.dark .track {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  }
+  .track:hover{ transform: translateY(-4px) }
+
+  .cover{width:84px;height:84px;border-radius:8px;overflow:hidden;flex:0 0 84px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#04201f;font-weight:700}
+  .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .track-info{flex:1}
+  .track-title{font-weight:700;margin:0}
+  .track-meta{color:var(--muted);font-size:0.9rem;margin-top:4px}
+  .track-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .play-btn{background:var(--accent);border:none;color:#04201f;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer}
+  .play-btn[aria-pressed="true"]{background:var(--accent-2)}
+  .link-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 10px;border-radius:8px;color:var(--title);text-decoration:none}
+
+  /* mini audio player bar */
+  .player-bar{
+    position:sticky;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    max-width:980px;
+    background:var(--card);
+    padding:10px 14px;
+    border-radius:12px;
+    box-shadow:0 18px 40px rgba(2,6,23,0.08);
+    display:flex;gap:12px;align-items:center;
+    z-index:40;
+    transition: background var(--transition-speed), color var(--transition-speed);
+  }
+  .player-cover{width:56px;height:56px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#04201f;font-weight:700}
+  .player-cover img{width:100%;height:100%;object-fit:cover}
+  .player-track{flex:1}
+  .time{font-size:0.85rem;color:var(--muted)}
+
+  /* Social */
+  .social ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+  .social a{font-weight:600}
+
+  /* responsive */
+  @media (max-width:840px){
+    .layout{grid-template-columns:1fr;padding:16px}
+    .player-bar{left:12px;transform:none;width:calc(100% - 24px)}
+  }
+</style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
 
   <div class="layout">
-    <aside class="sidebar">
-      <h1><a href="index.html" class="sidebar-home-link">Srinivasa Ramanujam</a></h1>
-      
+    <aside class="sidebar" aria-labelledby="sidebar-title">
+      <div>
+        <h1 id="sidebar-title"><a href="index.html">Srinivasa Ramanujam</a></h1>
+        <p><em>Music & performances</em></p>
+      </div>
 
-      <nav>
+      <nav aria-label="Main menu">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="music.html">Music</a></li>
+          <li><a href="music.html" aria-current="page">Music</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="blog.html">Blog</a></li>
         </ul>
       </nav>
 
-      <div class="social">
-        <p><strong>Discover Me @:</strong></p>
+      <div class="hot" aria-label="Hot right now">
+        <h4>Hot right now</h4>
         <ul>
-          <li><a href="https://open.spotify.com/user/e4i5aewy1pqi9jlivov8al83c" target="_blank">Spotify</a></li>
-          <li><a href="https://www.albumoftheyear.org/user/rmjm/" target="_blank">AOTY</a></li>
-          <li><a href="https://letterboxd.com/sydneysriney/" target="_blank">Letterboxd</a></li>
+          <li>Daft Punk</li>
+          <li>Agam</li>
+        </ul>
+      </div>
+
+      <div class="social" aria-label="Find me">
+        <p><strong>Discover me:</strong></p>
+        <ul>
+          <li><a href="https://open.spotify.com/user/e4i5aewy1pqi9jlivov8al83c" target="_blank" rel="noopener">Spotify</a></li>
+          <li><a href="https://www.albumoftheyear.org/user/rmjm/" target="_blank" rel="noopener">AOTY</a></li>
+          <li><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube (studio)</a></li>
         </ul>
       </div>
     </aside>
 
     <main class="content">
-      <section>
+      <section class="card">
         <h2>My Music</h2>
-        <p>Huge Fan of music and my spotify wrapped on average comes out to 100k/year.<br> Was a chorus singer for Maestro Ilaiyaraaja.<br>
-          I learnt Carnatic Music for 5-6 years and Self taught myself the piano for about a year. I try to make something when free-</p>
+        <p class="muted">I trained in Carnatic vocal music and have performed in several concerts. I'm self-taught on piano and guitar and enjoy blending tradition with experimental textures. Below are a few highlights and audio previews.</p>
 
-        <!-- Example 1: Upload MP3s -->
-        <h3>Track: Thikkalodi Vesham - Ilaiyaraaja</h3>
-        <p>It was Jan 2016, when I was called to the studio by Maestro Ilaiyaraaja to record chorus verses for a couple of songs. Only one was released</p>
-        <a href="https://www.youtube.com/watch?v=5vn7vDVa3X8&ab_channel=ARANIndia" target="_blank">Link to the song</a>
-        
-        <h3>Track: “NY Nagaram: Revisited”</h3>
-        <p>My first attempt at Sampling. Setting the bar to improve. Original Song: New York Nagaram by A.R.Rahman</p>
-        <audio controls>
-          <source src="assets/music/NY Nagaram.mp3" type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
-        
+        <h3 style="margin-top:18px">Tracks & previews</h3>
+        <div class="tracks" id="tracks">
+          <!-- Track: Thikkalodi Vesham (studio chorus) -->
+          <div class="track" data-src="" data-youtube="https://www.youtube.com/watch?v=5vn7vDVa3X8">
+            <div class="cover" aria-hidden="true">
+              <img src="assets/music/thikkalodi.jpg" alt="Thikkalodi cover" onerror="this.style.display='none'">
+            </div>
+            <div class="track-info">
+              <p class="track-title">Thikkalodi Vesham — (studio chorus)</p>
+              <p class="track-meta">Recorded Jan 2016 — chorus for Maestro Ilaiyaraaja. One released song.</p>
+            </div>
+            <div class="track-actions">
+              <a class="link-btn" href="https://www.youtube.com/watch?v=5vn7vDVa3X8" target="_blank" rel="noopener">Open on YouTube</a>
+            </div>
+          </div>
 
+          <!-- Track: NY Nagaram (your sampling) -->
+          <div class="track" data-src="assets/music/NY Nagaram.mp3">
+            <div class="cover">
+              <img src="assets/music/ny_cover.jpg" alt="NY Nagaram cover" onerror="this.style.display='none'">
+            </div>
+            <div class="track-info">
+              <p class="track-title">NY Nagaram: Revisited</p>
+              <p class="track-meta">My first sampling attempt — short preview available.</p>
+            </div>
+            <div class="track-actions">
+              <button class="play-btn" type="button" aria-pressed="false">▶ Play</button>
+              <a class="link-btn" href="assets/music/NY_Nagaram.mp3" target="_blank" rel="noopener">Download</a>
+            </div>
+          </div>
+
+          <!-- Example placeholder for future track -->
+          <div class="track" data-src="">
+            <div class="cover">TRK</div>
+            <div class="track-info">
+              <p class="track-title">Paft Dunk - Demo</p>
+              <p class="track-meta">Work in progress.</p>
+            </div>
+            <div class="track-actions">
+              <button class="play-btn" disabled aria-pressed="false">—</button>
+            </div>
+          </div>
+        </div>
+
+    
+
+        
       </section>
     </main>
   </div>
 
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark');
-      toggleBtn.textContent = '☀️';
+  <!-- single shared audio player to avoid overlapping playback -->
+  <div class="player-bar" id="player" aria-hidden="true" style="display:none">
+    <div class="player-cover" id="player-cover"></div>
+    <div class="player-track">
+      <div id="player-title" style="font-weight:700">—</div>
+      <div class="time"><span id="player-time">0:00</span> / <span id="player-duration">0:00</span></div>
+      <input id="seek" type="range" min="0" max="100" value="0" style="width:100%;margin-top:6px">
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="player-play" class="play-btn" aria-pressed="false">▶</button>
+      <button id="player-stop" class="link-btn" type="button">Stop</button>
+    </div>
+  </div>
+
+<script>
+(function(){
+  /* THEME (toggle class on <html>) */
+  const THEME_KEY = 'theme';
+  const themeBtn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  function getInitialTheme(){
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  function applyTheme(t){
+    root.classList.toggle('dark', t === 'dark');
+    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  }
+  let theme = getInitialTheme();
+  applyTheme(theme);
+  themeBtn.addEventListener('click', ()=>{
+    theme = root.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem(THEME_KEY, theme);
+    applyTheme(theme);
+  });
+
+  /* AUDIO PLAYER */
+  const trackEls = Array.from(document.querySelectorAll('.track'));
+  const audio = new Audio();
+  audio.preload = 'metadata';
+  let current = null;
+
+  // Player UI elements
+  const playerBar = document.getElementById('player');
+  const playerCover = document.getElementById('player-cover');
+  const playerTitle = document.getElementById('player-title');
+  const playerTime = document.getElementById('player-time');
+  const playerDuration = document.getElementById('player-duration');
+  const seek = document.getElementById('seek');
+  const playerPlay = document.getElementById('player-play');
+  const playerStop = document.getElementById('player-stop');
+
+  function formatTime(s){
+    if (isNaN(s)) return '0:00';
+    const m = Math.floor(s/60);
+    const ss = Math.floor(s%60).toString().padStart(2,'0');
+    return `${m}:${ss}`;
+  }
+
+  function showPlayerForTrack(trackEl){
+    const title = trackEl.querySelector('.track-title')?.textContent || '—';
+    const coverImg = trackEl.querySelector('.cover img');
+    playerTitle.textContent = title;
+    // cover
+    playerCover.innerHTML = ''; // clear
+    if (coverImg){
+      const img = document.createElement('img');
+      img.src = coverImg.src;
+      img.alt = coverImg.alt || '';
+      playerCover.appendChild(img);
+    } else {
+      playerCover.textContent = (trackEl.querySelector('.cover')?.textContent || '').trim();
     }
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
+    playerBar.style.display = 'flex';
+    playerBar.setAttribute('aria-hidden','false');
+  }
+
+  function setPlayingState(trackEl, isPlaying){
+    // set aria-pressed on the specific play button
+    const pb = trackEl ? trackEl.querySelector('.play-btn') : null;
+    if (pb) pb.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    // update global player button
+    playerPlay.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    playerPlay.textContent = isPlaying ? '⏸' : '▶';
+  }
+
+  // attach handlers to play buttons
+  trackEls.forEach(trackEl => {
+    const playBtn = trackEl.querySelector('.play-btn');
+    const src = trackEl.dataset.src?.trim();
+    if (!playBtn) return;
+
+    if (!src){
+      // disable button if no source
+      playBtn.disabled = true;
+      playBtn.title = 'No preview available';
+      return;
+    }
+    playBtn.disabled = false;
+    playBtn.addEventListener('click', () => {
+      // same track -> toggle
+      if (current === trackEl) {
+        if (audio.paused) audio.play(); else audio.pause();
+        return;
       }
+      // different track -> load and play
+      current = trackEl;
+      audio.src = src;
+      audio.currentTime = 0;
+      audio.play().catch(()=>{ /* ignore autoplay block */ });
+      showPlayerForTrack(trackEl);
+      setPlayingState(trackEl, true);
     });
-  </script>
+  });
+
+  // audio event listeners
+  audio.addEventListener('loadedmetadata', () => {
+    playerDuration.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    playerTime.textContent = formatTime(audio.currentTime);
+    const d = isNaN(audio.duration) ? 0 : audio.duration;
+    if (d > 0) seek.value = Math.floor((audio.currentTime / d) * 100);
+  });
+
+  audio.addEventListener('play', () => {
+    setPlayingState(current, true);
+  });
+
+  audio.addEventListener('pause', () => {
+    setPlayingState(current, false);
+  });
+
+  audio.addEventListener('ended', () => {
+    setPlayingState(current, false);
+  });
+
+  // player controls
+  playerPlay.addEventListener('click', () => {
+    if (!current) return;
+    if (audio.paused) audio.play(); else audio.pause();
+  });
+
+  playerStop.addEventListener('click', () => {
+    if (!current) return;
+    audio.pause();
+    audio.currentTime = 0;
+    setPlayingState(current, false);
+    playerBar.style.display = 'none';
+    playerBar.setAttribute('aria-hidden','true');
+    current = null;
+  });
+
+  seek.addEventListener('input', () => {
+    if (isNaN(audio.duration) || audio.duration === 0) return;
+    const pct = Number(seek.value);
+    audio.currentTime = (pct / 100) * audio.duration;
+  });
+
+  // keyboard accessibility: allow Enter/Space on play buttons
+  document.querySelectorAll('.play-btn').forEach(b => {
+    b.addEventListener('keyup', e => {
+      if (e.key === 'Enter' || e.key === ' ') b.click();
+    });
+  });
+
+  // clicking a YouTube link doesn't affect local player; fine.
+})();
+</script>
 </body>
 </html>
