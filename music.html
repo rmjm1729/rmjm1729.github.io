@@ -1,402 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Music — Srinivasa Ramanujam</title>
-<meta name="description" content="Music, recordings and projects by Srinivasa Ramanujam.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#f7fafc;
-    --card:#fff;
-    --muted:#51606a;
-    --accent:#06b6d4;
-    --title:#0b1220;
-    --glass: rgba(2,6,23,0.06);
-    --accent-2:#60a5fa;
-    --transition-speed: .25s;
-  }
-
-  /* When html has .dark, variables switch site-wide */
-  html.dark{
-    --bg:#071021;
-    --card:#0b1220;
-    --muted:#9aa6b2;
-    --accent:#6ee7b7;
-    --title:#e6eef3;
-    --accent-2:#3aa0d9;
-  }
-
-  *{box-sizing:border-box}
-  html,body{
-    height:100%;
-    margin:0;
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    background: var(--bg);
-    color: var(--title);
-    transition: background var(--transition-speed), color var(--transition-speed);
-  }
-
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  /* Layout */
-  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;align-items:flex-start; grid-template-columns:260px 1fr;}
-  .sidebar{
-    padding:20px;
-    background:var(--card);
-    border-radius:14px;
-    box-shadow:0 10px 30px var(--glass);
-    position:sticky; top:28px;
-    display:flex; flex-direction:column; gap:18px;
-    transition: background var(--transition-speed);
-  }
-  .sidebar h1{margin:0;font-size:1.2rem}
-  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
-  .sidebar nav ul{list-style:none;padding:0;margin:0}
-  .sidebar nav li{margin:12px 0}
-  .sidebar a{color:var(--title)}
-
-  .hot {border-left:3px solid rgba(0,0,0,0.06);padding-left:12px;margin-top:6px}
-  .hot h4{margin:0 0 8px 0;font-size:0.95rem}
-  .hot ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
-  .hot li{font-weight:600;color:var(--muted);font-size:0.95rem}
-
-  main.content{max-width:980px;margin:0 auto}
-  .card{
-    background:var(--card);
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 10px 30px var(--glass);
-    margin-bottom:18px;
-    transition: background var(--transition-speed), color var(--transition-speed);
-  }
-
-  h2{margin-top:0}
-  .muted{color:var(--muted)}
-
-  /* Track list */
-  .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px}
-  .track{
-    display:flex;gap:12px;padding:12px;border-radius:10px;
-    align-items:center;
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
-    box-shadow:0 6px 18px rgba(0,0,0,0.03);
-    transition: background var(--transition-speed), transform .12s;
-  }
-  html.dark .track {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-  }
-  .track:hover{ transform: translateY(-4px) }
-
-  .cover{width:84px;height:84px;border-radius:8px;overflow:hidden;flex:0 0 84px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#04201f;font-weight:700}
-  .cover img{width:100%;height:100%;object-fit:cover;display:block}
-  .track-info{flex:1}
-  .track-title{font-weight:700;margin:0}
-  .track-meta{color:var(--muted);font-size:0.9rem;margin-top:4px}
-  .track-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-  .play-btn{background:var(--accent);border:none;color:#04201f;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer}
-  .play-btn[aria-pressed="true"]{background:var(--accent-2)}
-  .link-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 10px;border-radius:8px;color:var(--title);text-decoration:none}
-
-  /* mini audio player bar */
-  .player-bar{
-    position:sticky;
-    bottom:18px;
-    left:50%;
-    transform:translateX(-50%);
-    max-width:980px;
-    background:var(--card);
-    padding:10px 14px;
-    border-radius:12px;
-    box-shadow:0 18px 40px rgba(2,6,23,0.08);
-    display:flex;gap:12px;align-items:center;
-    z-index:40;
-    transition: background var(--transition-speed), color var(--transition-speed);
-  }
-  .player-cover{width:56px;height:56px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#04201f;font-weight:700}
-  .player-cover img{width:100%;height:100%;object-fit:cover}
-  .player-track{flex:1}
-  .time{font-size:0.85rem;color:var(--muted)}
-
-  /* Social */
-  .social ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-  .social a{font-weight:600}
-
-  /* responsive */
-  @media (max-width:840px){
-    .layout{grid-template-columns:1fr;padding:16px}
-    .player-bar{left:12px;transform:none;width:calc(100% - 24px)}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Ramanujam - Audio Log</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel to translate JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #c0c0c0;
+        }
+    </style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    <div id="root"></div>
 
-  <div class="layout">
-    <aside class="sidebar" aria-labelledby="sidebar-title">
-      <div>
-        <h1 id="sidebar-title"><a href="index.html">Srinivasa Ramanujam</a></h1>
-        <p><em>Music & performances</em></p>
-      </div>
+    <script type="text/babel" data-presets="react,env">
+        const { useState, useEffect } = React;
 
-      <nav aria-label="Main menu">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="music.html" aria-current="page">Music</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
-        </ul>
-      </nav>
+        // Shared NavLink component that handles both anchors and page links
+        const NavLink = ({ href, children, isActive }) => (
+            <a 
+                href={href} 
+                className={`block w-full px-2 py-1 underline font-bold mb-1 ${isActive ? 'bg-blue-800 text-white' : 'text-blue-800 hover:bg-blue-800 hover:text-white'}`}
+                onClick={(e) => {
+                    // Only intercept if it's an anchor link on the same page
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.replace('#', '');
+                        const element = document.getElementById(targetId);
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'auto' });
+                        }
+                    }
+                }}
+            >
+                {children}
+            </a>
+        );
 
-      <div class="hot" aria-label="Hot right now">
-        <h4>Hot right now</h4>
-        <ul>
-          <li>Daft Punk</li>
-          <li>Agam</li>
-        </ul>
-      </div>
+        function App() {
+            const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
-      <div class="social" aria-label="Find me">
-        <p><strong>Discover me:</strong></p>
-        <ul>
-          <li><a href="https://open.spotify.com/user/e4i5aewy1pqi9jlivov8al83c" target="_blank" rel="noopener">Spotify</a></li>
-          <li><a href="https://www.albumoftheyear.org/user/rmjm/" target="_blank" rel="noopener">AOTY</a></li>
-          <li><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube (studio)</a></li>
-        </ul>
-      </div>
-    </aside>
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentTime(new Date().toLocaleTimeString());
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
 
-    <main class="content">
-      <section class="card">
-        <h2>My Music</h2>
-        <p class="muted">I trained in Carnatic vocal music and have performed in Carnatic Music concerts. I'm self-taught on piano and guitar and enjoy blending tradition with experimental textures. Below are a few highlights and audio previews.</p>
+            return (
+                <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
+                    
+                    {/* Main Container */}
+                    <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
+                        
+                        {/* Header Bar */}
+                        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
+                            <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam_Audio.html</h1>
+                            <div className="flex gap-2">
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">X</div>
+                            </div>
+                        </div>
 
-        <h3 style="margin-top:18px">Tracks & previews</h3>
-        <div class="tracks" id="tracks">
-          <!-- Track: Thikkalodi Vesham (studio chorus) -->
-          <div class="track" data-src="" data-youtube="https://www.youtube.com/watch?v=5vn7vDVa3X8">
-            <div class="cover" aria-hidden="true">
-              <img src="assets/music/thikkalodi.jpg" alt="Thikkalodi cover" onerror="this.style.display='none'">
-            </div>
-            <div class="track-info">
-              <p class="track-title">Thikkalodi Vesham — (studio chorus)</p>
-              <p class="track-meta">Recorded Jan 2016 — chorus for Maestro Ilaiyaraaja. One released song.</p>
-            </div>
-            <div class="track-actions">
-              <a class="link-btn" href="https://www.youtube.com/watch?v=5vn7vDVa3X8" target="_blank" rel="noopener">Open on YouTube</a>
-            </div>
-          </div>
+                        {/* Layout Table */}
+                        <div className="flex flex-col md:flex-row gap-4">
+                            
+                            {/* Sidebar / Navigation */}
+                            <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
+                                    <img 
+                                        src="assets/0_g8DsGYbSjK469LBY.jpg" 
+                                        alt="Profile" 
+                                        className="w-full h-auto border border-black mb-2 grayscale contrast-125"
+                                    />
+                                    <p className="font-bold text-xs mb-2">STATUS: LISTENING</p>
+                                    <p className="text-xs">{currentTime}</p>
+                                </div>
 
-          <!-- Track: NY Nagaram (your sampling) -->
-          <div class="track" data-src="assets/music/NY Nagaram.mp3">
-            <div class="cover">
-              <img src="assets/music/ny_cover.jpg" alt="NY Nagaram cover" onerror="this.style.display='none'">
-            </div>
-            <div class="track-info">
-              <p class="track-title">NY Nagaram: Revisited</p>
-              <p class="track-meta">My first sampling attempt — short preview available.</p>
-            </div>
-            <div class="track-actions">
-              <button class="play-btn" type="button" aria-pressed="false">▶ Play</button>
-              <a class="link-btn" href="assets/music/NY_Nagaram.mp3" target="_blank" rel="noopener">Download</a>
-            </div>
-          </div>
+                                <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
+                                    <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
+                                    <nav>
+                                        <NavLink href="index.html">:: Home</NavLink>
+                                        <NavLink href="index.html#research">:: Research</NavLink>
+                                        <NavLink href="index.html#notes">:: Notes (PDF)</NavLink>
+                                        <NavLink href="index.html#links">:: Cool Links</NavLink>
+                                        <NavLink href="#" isActive={true}>:: MUSIC (Active)</NavLink>
+                                        <NavLink href="index.html#contact">:: Email Me</NavLink>
+                                    </nav>
+                                </div>
 
-          <!-- Example placeholder for future track -->
-           <div class="track" data-src="assets/music/paft dunk.mp3">
-            <div class="cover">
-              <img src="assets/music/pd_cover.jpg" alt="paft dunk cover" onerror="this.style.display='none'">
-            </div>
-            <div class="track-info">
-              <p class="track-title">Paft Dunk - Glance</p>
-              <p class="track-meta">inspired work</p>
-            </div>
-            <div class="track-actions">
-              <button class="play-btn" type="button" aria-pressed="false">▶ Play</button>
-            </div>
-          </div>
+                                {/* MUSIC Sidebar Favorites */}
+                                <div className="border-2 border-gray-400 p-2 bg-[#ffe4e1] text-center mb-4">
+                                    <p className="font-bold text-red-800 animate-pulse">♫ ON REPEAT ♫</p>
+                                    
+                                    <ul className="text-xs text-left list-disc pl-4 space-y-1 mt-2 font-serif italic">
+                                        <li>Radiohead - In Rainbows</li>
+                                        <li>Pink Floyd - Echoes</li>
+                                        <li>Daft Punk - RAM</li>
+                                        <li>The Strokes - Is This It</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-    
+                            {/* Main Content Area */}
+                            <div className="flex-grow">
+                                
+                                {/* Intro Section */}
+                                <section className="border-2 border-gray-300 p-4 mb-6 relative">
+                                    <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        My Audio Lab
+                                    </h2>
+                                    <p className="mb-4 text-lg">
+                                        Where physics meets frequency. A collection of what I listen to and what I try to create.
+                                    </p>
+                                </section>
 
-        
-      </section>
-    </main>
-  </div>
+                                {/* Music Content */}
+                                <section id="music" className="mb-6 border-2 border-gray-400 bg-[#f0f8ff] p-4">
+                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Audio Log & Collections</h3>
+                                    
+                                    {/* Essential Albums */}
+                                    <div className="mb-6">
+                                        <h4 className="font-bold bg-blue-200 inline-block px-1 mb-2 text-sm border border-black">:: ESSENTIAL_ALBUMS.TXT</h4>
+                                        <div className="grid grid-cols-2 gap-4 text-xs md:text-sm">
+                                            <div className="border border-gray-400 p-2 bg-white hover:bg-blue-50 cursor-pointer">
+                                                <p className="font-bold">Pink Floyd</p>
+                                                <p className="italic">The Dark Side of the Moon</p>
+                                                <p className="text-[10px] text-gray-500 mt-1">[1973]</p>
+                                            </div>
+                                            <div className="border border-gray-400 p-2 bg-white hover:bg-blue-50 cursor-pointer">
+                                                <p className="font-bold">Radiohead</p>
+                                                <p className="italic">OK Computer</p>
+                                                <p className="text-[10px] text-gray-500 mt-1">[1997]</p>
+                                            </div>
+                                            <div className="border border-gray-400 p-2 bg-white hover:bg-blue-50 cursor-pointer">
+                                                <p className="font-bold">A.R. Rahman</p>
+                                                <p className="italic">Rockstar (OST)</p>
+                                                <p className="text-[10px] text-gray-500 mt-1">[2011]</p>
+                                            </div>
+                                            <div className="border border-gray-400 p-2 bg-white hover:bg-blue-50 cursor-pointer">
+                                                <p className="font-bold">Daft Punk</p>
+                                                <p className="italic">Discovery</p>
+                                                <p className="text-[10px] text-gray-500 mt-1">[2001]</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-  <!-- single shared audio player to avoid overlapping playback -->
-  <div class="player-bar" id="player" aria-hidden="true" style="display:none">
-    <div class="player-cover" id="player-cover"></div>
-    <div class="player-track">
-      <div id="player-title" style="font-weight:700">—</div>
-      <div class="time"><span id="player-time">0:00</span> / <span id="player-duration">0:00</span></div>
-      <input id="seek" type="range" min="0" max="100" value="0" style="width:100%;margin-top:6px">
-    </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="player-play" class="play-btn" aria-pressed="false">▶</button>
-      <button id="player-stop" class="link-btn" type="button">Stop</button>
-    </div>
-  </div>
+                                    {/* Curated Playlist */}
+                                    <div className="mb-6">
+                                        <h4 className="font-bold bg-blue-200 inline-block px-1 mb-2 text-sm border border-black">:: CURATED_PLAYLIST_VOL_1</h4>
+                                        <table className="w-full border-collapse border border-gray-500 text-xs bg-white">
+                                            <tbody>
+                                                <tr className="border-b border-gray-300 hover:bg-yellow-100">
+                                                    <td className="p-1 border-r border-gray-300 font-bold w-8 text-center">01</td>
+                                                    <td className="p-1 border-r border-gray-300">New York Nagaram</td>
+                                                    <td className="p-1 text-gray-600">A.R. Rahman</td>
+                                                </tr>
+                                                <tr className="border-b border-gray-300 hover:bg-yellow-100">
+                                                    <td className="p-1 border-r border-gray-300 font-bold w-8 text-center">02</td>
+                                                    <td className="p-1 border-r border-gray-300">Instant Crush</td>
+                                                    <td className="p-1 text-gray-600">Daft Punk</td>
+                                                </tr>
+                                                <tr className="border-b border-gray-300 hover:bg-yellow-100">
+                                                    <td className="p-1 border-r border-gray-300 font-bold w-8 text-center">03</td>
+                                                    <td className="p-1 border-r border-gray-300">Time</td>
+                                                    <td className="p-1 text-gray-600">Pink Floyd</td>
+                                                </tr>
+                                                <tr className="hover:bg-yellow-100">
+                                                    <td className="p-1 border-r border-gray-300 font-bold w-8 text-center">04</td>
+                                                    <td className="p-1 border-r border-gray-300">Entanglement</td>
+                                                    <td className="p-1 text-gray-600">Physics Wave</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-<script>
-(function(){
-  /* THEME (toggle class on <html>) */
-  const THEME_KEY = 'theme';
-  const themeBtn = document.getElementById('theme-toggle');
-  const root = document.documentElement;
+                                    {/* My Works */}
+                                    <div>
+                                        <h4 className="font-bold bg-purple-200 inline-block px-1 mb-2 text-sm border border-black">:: EXPERIMENTAL_WORKS</h4>
+                                        <div className="space-y-3">
+                                            <div className="border border-black p-2 bg-gray-100 hover:bg-gray-200 cursor-pointer flex items-center gap-3">
+                                                <div className="bg-black text-white w-8 h-8 flex items-center justify-center font-bold text-xs">MP3</div>
+                                                <div>
+                                                    <p className="font-bold text-blue-800 underline">project_nagaram_arpeggio.mp3</p>
+                                                    <p className="text-xs mt-1">Tested FL Studio by isolating guitar tracks from New York Nagaram and tried to arpeggiate with piano.</p>
+                                                </div>
+                                            </div>
+                                            <div className="border border-black p-2 bg-gray-100 hover:bg-gray-200 cursor-pointer flex items-center gap-3">
+                                                <div className="bg-black text-white w-8 h-8 flex items-center justify-center font-bold text-xs">WAV</div>
+                                                <div>
+                                                    <p className="font-bold text-blue-800 underline">paft_dunk_vocoder_test.wav</p>
+                                                    <p className="text-xs mt-1">Paft Dunk: Daft Punk inspired vocoder work. Attempts at robot voice synthesis.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
 
-  function getInitialTheme(){
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved === 'dark' || saved === 'light') return saved;
-    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-  }
-  function applyTheme(t){
-    root.classList.toggle('dark', t === 'dark');
-    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
-  }
-  let theme = getInitialTheme();
-  applyTheme(theme);
-  themeBtn.addEventListener('click', ()=>{
-    theme = root.classList.contains('dark') ? 'light' : 'dark';
-    localStorage.setItem(THEME_KEY, theme);
-    applyTheme(theme);
-  });
+                                {/* Footer Link */}
+                                <div className="text-center mt-8">
+                                    <a href="index.html" className="text-blue-800 underline hover:bg-blue-800 hover:text-white px-2">
+                                        &lt;&lt; RETURN TO MAIN TERMINAL
+                                    </a>
+                                </div>
 
-  /* AUDIO PLAYER */
-  const trackEls = Array.from(document.querySelectorAll('.track'));
-  const audio = new Audio();
-  audio.preload = 'metadata';
-  let current = null;
+                            </div>
+                        </div>
 
-  // Player UI elements
-  const playerBar = document.getElementById('player');
-  const playerCover = document.getElementById('player-cover');
-  const playerTitle = document.getElementById('player-title');
-  const playerTime = document.getElementById('player-time');
-  const playerDuration = document.getElementById('player-duration');
-  const seek = document.getElementById('seek');
-  const playerPlay = document.getElementById('player-play');
-  const playerStop = document.getElementById('player-stop');
+                        {/* Footer */}
+                        <div className="mt-8 border-t-2 border-gray-400 pt-4 text-center text-xs text-gray-600">
+                            <p className="mb-2">Last updated: 2025</p>
+                            <div className="mt-4 text-[10px] text-gray-400">
+                                (c) Srinivasa Ramanujam 2025 | No Rights Reserved | Copyleft
+                            </div>
+                        </div>
 
-  function formatTime(s){
-    if (isNaN(s)) return '0:00';
-    const m = Math.floor(s/60);
-    const ss = Math.floor(s%60).toString().padStart(2,'0');
-    return `${m}:${ss}`;
-  }
+                    </div>
+                </div>
+            );
+        }
 
-  function showPlayerForTrack(trackEl){
-    const title = trackEl.querySelector('.track-title')?.textContent || '—';
-    const coverImg = trackEl.querySelector('.cover img');
-    playerTitle.textContent = title;
-    // cover
-    playerCover.innerHTML = ''; // clear
-    if (coverImg){
-      const img = document.createElement('img');
-      img.src = coverImg.src;
-      img.alt = coverImg.alt || '';
-      playerCover.appendChild(img);
-    } else {
-      playerCover.textContent = (trackEl.querySelector('.cover')?.textContent || '').trim();
-    }
-    playerBar.style.display = 'flex';
-    playerBar.setAttribute('aria-hidden','false');
-  }
-
-  function setPlayingState(trackEl, isPlaying){
-    // set aria-pressed on the specific play button
-    const pb = trackEl ? trackEl.querySelector('.play-btn') : null;
-    if (pb) pb.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
-    // update global player button
-    playerPlay.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
-    playerPlay.textContent = isPlaying ? '⏸' : '▶';
-  }
-
-  // attach handlers to play buttons
-  trackEls.forEach(trackEl => {
-    const playBtn = trackEl.querySelector('.play-btn');
-    const src = trackEl.dataset.src?.trim();
-    if (!playBtn) return;
-
-    if (!src){
-      // disable button if no source
-      playBtn.disabled = true;
-      playBtn.title = 'No preview available';
-      return;
-    }
-    playBtn.disabled = false;
-    playBtn.addEventListener('click', () => {
-      // same track -> toggle
-      if (current === trackEl) {
-        if (audio.paused) audio.play(); else audio.pause();
-        return;
-      }
-      // different track -> load and play
-      current = trackEl;
-      audio.src = src;
-      audio.currentTime = 0;
-      audio.play().catch(()=>{ /* ignore autoplay block */ });
-      showPlayerForTrack(trackEl);
-      setPlayingState(trackEl, true);
-    });
-  });
-
-  // audio event listeners
-  audio.addEventListener('loadedmetadata', () => {
-    playerDuration.textContent = formatTime(audio.duration);
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    playerTime.textContent = formatTime(audio.currentTime);
-    const d = isNaN(audio.duration) ? 0 : audio.duration;
-    if (d > 0) seek.value = Math.floor((audio.currentTime / d) * 100);
-  });
-
-  audio.addEventListener('play', () => {
-    setPlayingState(current, true);
-  });
-
-  audio.addEventListener('pause', () => {
-    setPlayingState(current, false);
-  });
-
-  audio.addEventListener('ended', () => {
-    setPlayingState(current, false);
-  });
-
-  // player controls
-  playerPlay.addEventListener('click', () => {
-    if (!current) return;
-    if (audio.paused) audio.play(); else audio.pause();
-  });
-
-  playerStop.addEventListener('click', () => {
-    if (!current) return;
-    audio.pause();
-    audio.currentTime = 0;
-    setPlayingState(current, false);
-    playerBar.style.display = 'none';
-    playerBar.setAttribute('aria-hidden','true');
-    current = null;
-  });
-
-  seek.addEventListener('input', () => {
-    if (isNaN(audio.duration) || audio.duration === 0) return;
-    const pct = Number(seek.value);
-    audio.currentTime = (pct / 100) * audio.duration;
-  });
-
-  // keyboard accessibility: allow Enter/Space on play buttons
-  document.querySelectorAll('.play-btn').forEach(b => {
-    b.addEventListener('keyup', e => {
-      if (e.key === 'Enter' || e.key === ' ') b.click();
-    });
-  });
-
-  // clicking a YouTube link doesn't affect local player; fine.
-})();
-</script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
