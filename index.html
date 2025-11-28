@@ -21,37 +21,58 @@
 <body>
     <div id="root"></div>
 
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react,env">
         const { useState, useEffect } = React;
+
+        // Moved data outside component for better performance
+        const quotes = [
+            { text: "God does not play dice with the universe.", author: "Albert Einstein" },
+            { text: "If you think you understand quantum mechanics, you don't understand quantum mechanics.", author: "Richard Feynman" },
+            { text: "Physics is like sex: sure, it may give some practical results, but that's not why we do it.", author: "Richard Feynman" },
+            { text: "Not only is the Universe stranger than we think, it is stranger than we can think.", author: "Werner Heisenberg" },
+            { text: "In physics, you don't have to go around making trouble for yourself - nature does it for you.", author: "Frank Wilczek" },
+            { text: "All science is either physics or stamp collecting.", author: "Ernest Rutherford" },
+            { text: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
+            { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
+            { text: "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.", author: "Stephen Hawking" },
+            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
+            { text: "Quantum mechanics makes absolutely no sense.", author: "Roger Penrose" },
+            { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
+            { text: "There is nothing new to be discovered in physics now. All that remains is more and more precise measurement.", author: "Lord Kelvin (1900)" },
+            { text: "If I have seen further it is by standing on the shoulders of Giants.", author: "Isaac Newton" },
+            { text: "Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organization of the entire tapestry.", author: "Richard Feynman" },
+            { text: "The most incomprehensible thing about the world is that it is comprehensible.", author: "Albert Einstein" },
+            { text: "Everything we call real is made of things that cannot be regarded as real.", author: "Niels Bohr" },
+            { text: "It is wrong to think that the task of physics is to find out how nature is. Physics concerns what we can say about nature.", author: "Niels Bohr" },
+            { text: "Prediction is very difficult, especially if it's about the future.", author: "Niels Bohr" },
+            { text: "Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.", author: "Stephen Hawking" }
+        ];
+
+        // Moved component outside App
+        const NavLink = ({ href, children }) => (
+            <a 
+                href={href} 
+                className="block w-full text-blue-800 hover:bg-blue-800 hover:text-white px-2 py-1 underline font-bold mb-1"
+                onClick={(e) => {
+                    e.preventDefault();
+                    // Safe element lookup
+                    const targetId = href.replace('#', '');
+                    const element = document.getElementById(targetId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'auto' });
+                    } else {
+                        console.log("Section not found:", targetId);
+                    }
+                }}
+            >
+                {children}
+            </a>
+        );
 
         function App() {
             const [visitorCount, setVisitorCount] = useState(14023);
             const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
             const [randomQuote, setRandomQuote] = useState(null);
-
-            // Large array of Physics quotes
-            const quotes = [
-                { text: "God does not play dice with the universe.", author: "Albert Einstein" },
-                { text: "If you think you understand quantum mechanics, you don't understand quantum mechanics.", author: "Richard Feynman" },
-                { text: "Physics is like sex: sure, it may give some practical results, but that's not why we do it.", author: "Richard Feynman" },
-                { text: "Not only is the Universe stranger than we think, it is stranger than we can think.", author: "Werner Heisenberg" },
-                { text: "In physics, you don't have to go around making trouble for yourself - nature does it for you.", author: "Frank Wilczek" },
-                { text: "All science is either physics or stamp collecting.", author: "Ernest Rutherford" },
-                { text: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
-                { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
-                { text: "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.", author: "Stephen Hawking" },
-                { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
-                { text: "Quantum mechanics makes absolutely no sense.", author: "Roger Penrose" },
-                { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
-                { text: "There is nothing new to be discovered in physics now. All that remains is more and more precise measurement.", author: "Lord Kelvin (1900)" },
-                { text: "If I have seen further it is by standing on the shoulders of Giants.", author: "Isaac Newton" },
-                { text: "Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organization of the entire tapestry.", author: "Richard Feynman" },
-                { text: "The most incomprehensible thing about the world is that it is comprehensible.", author: "Albert Einstein" },
-                { text: "Everything we call real is made of things that cannot be regarded as real.", author: "Niels Bohr" },
-                { text: "It is wrong to think that the task of physics is to find out how nature is. Physics concerns what we can say about nature.", author: "Niels Bohr" },
-                { text: "Prediction is very difficult, especially if it's about the future.", author: "Niels Bohr" },
-                { text: "Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.", author: "Stephen Hawking" },
-            ];
 
             useEffect(() => {
                 // Clock
@@ -60,25 +81,13 @@
                 }, 1000);
 
                 // Random Quote Logic
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                setRandomQuote(quotes[randomIndex]);
+                if (quotes.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * quotes.length);
+                    setRandomQuote(quotes[randomIndex]);
+                }
 
                 return () => clearInterval(timer);
             }, []);
-
-            const NavLink = ({ href, children }) => (
-                <a 
-                    href={href} 
-                    className="block w-full text-blue-800 hover:bg-blue-800 hover:text-white px-2 py-1 underline font-bold mb-1"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        const element = document.getElementById(href.replace('#', ''));
-                        if (element) element.scrollIntoView({ behavior: 'auto' });
-                    }}
-                >
-                    {children}
-                </a>
-            );
 
             return (
                 <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
@@ -102,7 +111,6 @@
                             {/* Sidebar / Navigation */}
                             <div className="w-full md:w-48 flex-shrink-0">
                                 <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
-                                    {/* IMAGE PLACEHOLDER: If you uploaded an image, change the 'src' below to your filename (e.g., src="./my-photo.jpg") */}
                                     <img 
                                         src="assets/0_g8DsGYbSjK469LBY.jpg" 
                                         alt="Profile" 
