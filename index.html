@@ -1,220 +1,250 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Ramanujam</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel to translate JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-export default function App() {
-  const [visitorCount, setVisitorCount] = useState(14023);
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  const [randomQuote, setRandomQuote] = useState(null);
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  // Large array of Physics quotes
-  const quotes = [
-    { text: "God does not play dice with the universe.", author: "Albert Einstein" },
-    { text: "If you think you understand quantum mechanics, you don't understand quantum mechanics.", author: "Richard Feynman" },
-    { text: "Physics is like sex: sure, it may give some practical results, but that's not why we do it.", author: "Richard Feynman" },
-    { text: "Not only is the Universe stranger than we think, it is stranger than we can think.", author: "Werner Heisenberg" },
-    { text: "In physics, you don't have to go around making trouble for yourself - nature does it for you.", author: "Frank Wilczek" },
-    { text: "All science is either physics or stamp collecting.", author: "Ernest Rutherford" },
-    { text: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
-    { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
-    { text: "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.", author: "Stephen Hawking" },
-    { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" }, // Often quoted in academic circles
-    { text: "Quantum mechanics makes absolutely no sense.", author: "Roger Penrose" },
-    { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
-    { text: "There is nothing new to be discovered in physics now. All that remains is more and more precise measurement.", author: "Lord Kelvin (1900)" },
-    { text: "If I have seen further it is by standing on the shoulders of Giants.", author: "Isaac Newton" },
-    { text: "Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organization of the entire tapestry.", author: "Richard Feynman" },
-    { text: "The most incomprehensible thing about the world is that it is comprehensible.", author: "Albert Einstein" },
-    { text: "Everything we call real is made of things that cannot be regarded as real.", author: "Niels Bohr" },
-    { text: "It is wrong to think that the task of physics is to find out how nature is. Physics concerns what we can say about nature.", author: "Niels Bohr" },
-    { text: "Prediction is very difficult, especially if it's about the future.", author: "Niels Bohr" },
-    { text: "Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.", author: "Stephen Hawking" },
-    // ... (You can add more here to reach 64)
-  ];
+        function App() {
+            const [visitorCount, setVisitorCount] = useState(14023);
+            const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+            const [randomQuote, setRandomQuote] = useState(null);
 
-  useEffect(() => {
-    // Clock
-    const timer = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000);
+            // Large array of Physics quotes
+            const quotes = [
+                { text: "God does not play dice with the universe.", author: "Albert Einstein" },
+                { text: "If you think you understand quantum mechanics, you don't understand quantum mechanics.", author: "Richard Feynman" },
+                { text: "Physics is like sex: sure, it may give some practical results, but that's not why we do it.", author: "Richard Feynman" },
+                { text: "Not only is the Universe stranger than we think, it is stranger than we can think.", author: "Werner Heisenberg" },
+                { text: "In physics, you don't have to go around making trouble for yourself - nature does it for you.", author: "Frank Wilczek" },
+                { text: "All science is either physics or stamp collecting.", author: "Ernest Rutherford" },
+                { text: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
+                { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
+                { text: "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.", author: "Stephen Hawking" },
+                { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
+                { text: "Quantum mechanics makes absolutely no sense.", author: "Roger Penrose" },
+                { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
+                { text: "There is nothing new to be discovered in physics now. All that remains is more and more precise measurement.", author: "Lord Kelvin (1900)" },
+                { text: "If I have seen further it is by standing on the shoulders of Giants.", author: "Isaac Newton" },
+                { text: "Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organization of the entire tapestry.", author: "Richard Feynman" },
+                { text: "The most incomprehensible thing about the world is that it is comprehensible.", author: "Albert Einstein" },
+                { text: "Everything we call real is made of things that cannot be regarded as real.", author: "Niels Bohr" },
+                { text: "It is wrong to think that the task of physics is to find out how nature is. Physics concerns what we can say about nature.", author: "Niels Bohr" },
+                { text: "Prediction is very difficult, especially if it's about the future.", author: "Niels Bohr" },
+                { text: "Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.", author: "Stephen Hawking" },
+            ];
 
-    // Random Quote Logic
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    setRandomQuote(quotes[randomIndex]);
+            useEffect(() => {
+                // Clock
+                const timer = setInterval(() => {
+                    setCurrentTime(new Date().toLocaleTimeString());
+                }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+                // Random Quote Logic
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                setRandomQuote(quotes[randomIndex]);
 
-  const NavLink = ({ href, children }) => (
-    <a 
-      href={href} 
-      className="block w-full text-blue-800 hover:bg-blue-800 hover:text-white px-2 py-1 underline font-bold mb-1"
-      onClick={(e) => {
-        e.preventDefault();
-        const element = document.getElementById(href.replace('#', ''));
-        if (element) element.scrollIntoView({ behavior: 'auto' });
-      }}
-    >
-      {children}
-    </a>
-  );
+                return () => clearInterval(timer);
+            }, []);
 
-  return (
-    <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
-      
-      {/* Main Container */}
-      <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
-        
-        {/* Header Bar */}
-        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
-          <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam.html</h1>
-          <div className="flex gap-2">
-            <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
-            <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
-            <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">X</div>
-          </div>
-        </div>
+            const NavLink = ({ href, children }) => (
+                <a 
+                    href={href} 
+                    className="block w-full text-blue-800 hover:bg-blue-800 hover:text-white px-2 py-1 underline font-bold mb-1"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.getElementById(href.replace('#', ''));
+                        if (element) element.scrollIntoView({ behavior: 'auto' });
+                    }}
+                >
+                    {children}
+                </a>
+            );
 
-        {/* Layout Table */}
-        <div className="flex flex-col md:flex-row gap-4">
-          
-          {/* Sidebar / Navigation */}
-          <div className="w-full md:w-48 flex-shrink-0">
-            <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
-              <img 
-                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=200" 
-                alt="Profile" 
-                className="w-full h-auto border border-black mb-2 grayscale contrast-125"
-              />
-              <p className="font-bold text-xs mb-2">STATUS: STUDYING</p>
-              <p className="text-xs">{currentTime}</p>
-            </div>
+            return (
+                <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
+                    
+                    {/* Main Container */}
+                    <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
+                        
+                        {/* Header Bar */}
+                        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
+                            <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam.html</h1>
+                            <div className="flex gap-2">
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">X</div>
+                            </div>
+                        </div>
 
-            <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
-              <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
-              <nav>
-                <NavLink href="#home">:: Home</NavLink>
-                <NavLink href="#research">:: Research</NavLink>
-                <NavLink href="#notes">:: Notes (PDF)</NavLink>
-                <NavLink href="#links">:: Cool Links</NavLink>
-                <NavLink href="#contact">:: Email Me</NavLink>
-              </nav>
-            </div>
+                        {/* Layout Table */}
+                        <div className="flex flex-col md:flex-row gap-4">
+                            
+                            {/* Sidebar / Navigation */}
+                            <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
+                                    {/* IMAGE PLACEHOLDER: If you uploaded an image, change the 'src' below to your filename (e.g., src="./my-photo.jpg") */}
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=200" 
+                                        alt="Profile" 
+                                        className="w-full h-auto border border-black mb-2 grayscale contrast-125"
+                                    />
+                                    <p className="font-bold text-xs mb-2">STATUS: STUDYING</p>
+                                    <p className="text-xs">{currentTime}</p>
+                                </div>
 
-            <div className="border-2 border-gray-400 p-2 bg-[#ffffcc] text-center">
-              <p className="font-bold text-red-600 animate-pulse">!! UPDATES !!</p>
-              
-              <ul className="text-xs text-left list-none pl-1 space-y-2 mt-2">
-                <li className="font-bold text-blue-800">
-                   &gt; Studying for Endsemesters... (Do not disturb)
-                </li>
-                <li className="border-t border-gray-400 pt-1">
-                   &gt; 11/29: Hello World
-                </li>
-              </ul>
-            </div>
-          </div>
+                                <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
+                                    <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
+                                    <nav>
+                                        <NavLink href="#home">:: Home</NavLink>
+                                        <NavLink href="#research">:: Research</NavLink>
+                                        <NavLink href="#notes">:: Notes (PDF)</NavLink>
+                                        <NavLink href="#links">:: Cool Links</NavLink>
+                                        <NavLink href="#contact">:: Email Me</NavLink>
+                                    </nav>
+                                </div>
 
-          {/* Main Content Area */}
-          <div className="flex-grow">
-            
-            {/* Home Section */}
-            <section id="home" className="border-2 border-gray-300 p-4 mb-6 relative">
-              <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                Welcome.
-              </h2>
-              <p className="mb-4 text-lg">
-                You have reached my personal homepage. I study physics and listen to music. This website is perpetually under construction.
-              </p>
-              
-              {/* Python Terminal */}
-              <div className="bg-black text-green-500 p-4 font-mono text-sm border-2 border-gray-600 mb-4 overflow-x-auto shadow-inner">
-                {`> python3 simulate_universe.py
+                                <div className="border-2 border-gray-400 p-2 bg-[#ffffcc] text-center">
+                                    <p className="font-bold text-red-600 animate-pulse">!! UPDATES !!</p>
+                                    
+                                    <ul className="text-xs text-left list-none pl-1 space-y-2 mt-2">
+                                        <li className="font-bold text-blue-800">
+                                           &gt; Studying for Endsemesters... (Do not disturb)
+                                        </li>
+                                        <li className="border-t border-gray-400 pt-1">
+                                           &gt; 11/29: Hello World
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* Main Content Area */}
+                            <div className="flex-grow">
+                                
+                                {/* Home Section */}
+                                <section id="home" className="border-2 border-gray-300 p-4 mb-6 relative">
+                                    <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        Welcome.
+                                    </h2>
+                                    <p className="mb-4 text-lg">
+                                        You have reached my personal homepage. I study physics and listen to music. This website is perpetually under construction.
+                                    </p>
+                                    
+                                    {/* Python Terminal */}
+                                    <div className="bg-black text-green-500 p-4 font-mono text-sm border-2 border-gray-600 mb-4 overflow-x-auto shadow-inner">
+                                        {`> python3 simulate_universe.py
 Loading fundamental constants...
 G = 6.674×10^−11
 c = 299,792,458
 h_bar = 1.054×10^−34
 Initializing Big Bang... [OK]
 Expansion rate: Accelerating...`}
-              </div>
+                                    </div>
 
-              {/* Random Quote Section */}
-              {randomQuote && (
-                <div className="mt-6 border-l-4 border-gray-400 pl-4 py-2 italic bg-gray-100">
-                   <p className="font-serif text-gray-800 text-lg">"{randomQuote.text}"</p>
-                   <p className="text-right text-sm font-bold mt-2">— {randomQuote.author}</p>
+                                    {/* Random Quote Section */}
+                                    {randomQuote && (
+                                        <div className="mt-6 border-l-4 border-gray-400 pl-4 py-2 italic bg-gray-100">
+                                           <p className="font-serif text-gray-800 text-lg">"{randomQuote.text}"</p>
+                                           <p className="text-right text-sm font-bold mt-2">— {randomQuote.author}</p>
+                                        </div>
+                                    )}
+                                </section>
+
+                                {/* Research / Blog - EMPTY as requested */}
+                                <section id="research" className="mb-6">
+                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Research Log</h3>
+                                    <div className="p-8 text-center text-gray-500 border-2 border-dashed border-gray-300 bg-gray-50">
+                                        [ No entries found. Author is currently burying head in textbooks. ]
+                                    </div>
+                                </section>
+
+                                {/* Resources Table */}
+                                <section id="notes" className="mb-6">
+                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Resource Directory</h3>
+                                    <table className="w-full border-collapse border-2 border-black text-sm">
+                                        <thead>
+                                            <tr className="bg-gray-300">
+                                                <th className="border border-black p-2 text-left">Filename</th>
+                                                <th className="border border-black p-2 text-left">Description</th>
+                                                <th className="border border-black p-2 text-center">Size</th>
+                                                <th className="border border-black p-2 text-center">D/L</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className="border border-black p-2 font-bold text-blue-800">CLASS_MECH_101.PDF</td>
+                                                <td className="border border-black p-2">Lagrangian Mechanics Notes</td>
+                                                <td className="border border-black p-2 text-center">2.4MB</td>
+                                                <td className="border border-black p-2 text-center cursor-pointer hover:bg-gray-200">[💾]</td>
+                                            </tr>
+                                            <tr className="bg-gray-50">
+                                                <td className="border border-black p-2 font-bold text-blue-800">Q_HO_SIM.PY</td>
+                                                <td className="border border-black p-2">Quantum Harmonic Oscillator Script</td>
+                                                <td className="border border-black p-2 text-center">4KB</td>
+                                                <td className="border border-black p-2 text-center cursor-pointer hover:bg-gray-200">[💾]</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+
+                                {/* Contact */}
+                                <section id="contact" className="mb-6 bg-gray-200 border border-gray-400 p-4">
+                                    <h3 className="font-bold mb-2">:: Contact</h3>
+                                    <p className="mb-2">Please email me for academic inquiries.</p>
+                                    <div className="flex gap-2">
+                                        <input type="text" placeholder="guest@internet.com" className="border border-gray-600 p-1 w-full font-mono text-sm" />
+                                        <button className="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-black border-r-black px-4 active:border-t-black active:border-l-black active:border-b-white active:border-r-white">
+                                            SEND
+                                        </button>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="mt-8 border-t-2 border-gray-400 pt-4 text-center text-xs text-gray-600">
+                            <p className="mb-2">This page was last updated on November 29, 2025.</p>
+                            <p className="mb-2">Best viewed with Netscape Navigator 4.0 at 800x600 resolution.</p>
+                            
+                            <div className="flex justify-center items-center gap-2 mt-4">
+                                <span>You are visitor number:</span>
+                                <div className="bg-black text-red-500 font-mono border-2 border-gray-500 px-2 tracking-widest text-lg">
+                                    {visitorCount}
+                                </div>
+                            </div>
+                            
+                            <div className="mt-4 text-[10px] text-gray-400">
+                                (c) Srinivasa Ramanujam 2025 | No Rights Reserved | Copyleft
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-              )}
-            </section>
+            );
+        }
 
-            {/* Research / Blog - EMPTY as requested */}
-            <section id="research" className="mb-6">
-              <h3 className="font-bold border-b-4 border-black mb-4">:: Research Log</h3>
-              <div className="p-8 text-center text-gray-500 border-2 border-dashed border-gray-300 bg-gray-50">
-                [ No entries found. Author is currently burying head in textbooks. ]
-              </div>
-            </section>
-
-            {/* Resources Table */}
-            <section id="notes" className="mb-6">
-              <h3 className="font-bold border-b-4 border-black mb-4">:: Resource Directory</h3>
-              <table className="w-full border-collapse border-2 border-black text-sm">
-                <thead>
-                  <tr className="bg-gray-300">
-                    <th className="border border-black p-2 text-left">Filename</th>
-                    <th className="border border-black p-2 text-left">Description</th>
-                    <th className="border border-black p-2 text-center">Size</th>
-                    <th className="border border-black p-2 text-center">D/L</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border border-black p-2 font-bold text-blue-800">CLASS_MECH_101.PDF</td>
-                    <td className="border border-black p-2">Lagrangian Mechanics Notes</td>
-                    <td className="border border-black p-2 text-center">2.4MB</td>
-                    <td className="border border-black p-2 text-center cursor-pointer hover:bg-gray-200">[💾]</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-black p-2 font-bold text-blue-800">Q_HO_SIM.PY</td>
-                    <td className="border border-black p-2">Quantum Harmonic Oscillator Script</td>
-                    <td className="border border-black p-2 text-center">4KB</td>
-                    <td className="border border-black p-2 text-center cursor-pointer hover:bg-gray-200">[💾]</td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-             {/* Contact */}
-             <section id="contact" className="mb-6 bg-gray-200 border border-gray-400 p-4">
-                <h3 className="font-bold mb-2">:: Contact</h3>
-                <p className="mb-2">Please email me for academic inquiries.</p>
-                <div className="flex gap-2">
-                    <input type="text" placeholder="guest@internet.com" className="border border-gray-600 p-1 w-full font-mono text-sm" />
-                    <button className="bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-black border-r-black px-4 active:border-t-black active:border-l-black active:border-b-white active:border-r-white">
-                        SEND
-                    </button>
-                </div>
-            </section>
-
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 border-t-2 border-gray-400 pt-4 text-center text-xs text-gray-600">
-          <p className="mb-2">This page was last updated on November 29, 2025.</p>
-          <p className="mb-2">Best viewed with Netscape Navigator 4.0 at 800x600 resolution.</p>
-          
-          <div className="flex justify-center items-center gap-2 mt-4">
-             <span>You are visitor number:</span>
-             <div className="bg-black text-red-500 font-mono border-2 border-gray-500 px-2 tracking-widest text-lg">
-                {visitorCount}
-             </div>
-          </div>
-          
-          <div className="mt-4 text-[10px] text-gray-400">
-            (c) Srinivasa Ramanujam 2025 | No Rights Reserved | Copyleft
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
-}
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
