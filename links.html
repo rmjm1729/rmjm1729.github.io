@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Ramanujam - Web Ring</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel to translate JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-presets="react,env">
+        const { useState, useEffect } = React;
+
+        // Shared NavLink component
+        const NavLink = ({ href, children, isActive }) => (
+            <a 
+                href={href} 
+                className={`block w-full px-2 py-1 underline font-bold mb-1 ${isActive ? 'bg-blue-800 text-white' : 'text-blue-800 hover:bg-blue-800 hover:text-white'}`}
+                onClick={(e) => {
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.replace('#', '');
+                        const element = document.getElementById(targetId);
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'auto' });
+                        }
+                    }
+                }}
+            >
+                {children}
+            </a>
+        );
+
+        function App() {
+            const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentTime(new Date().toLocaleTimeString());
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
+                    
+                    {/* Main Container */}
+                    <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
+                        
+                        {/* Header Bar */}
+                        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
+                            <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam_Links.html</h1>
+                            <div className="flex gap-2">
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">X</div>
+                            </div>
+                        </div>
+
+                        {/* Layout Table */}
+                        <div className="flex flex-col md:flex-row gap-4">
+                            
+                            {/* Sidebar / Navigation */}
+                            <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
+                                    <img 
+                                        src="assets/0_g8DsGYbSjK469LBY.jpg" 
+                                        alt="Profile" 
+                                        className="w-full h-auto border border-black mb-2 grayscale contrast-125"
+                                    />
+                                    <p className="font-bold text-xs mb-2">STATUS: SURFING</p>
+                                    <p className="text-xs">{currentTime}</p>
+                                </div>
+
+                                <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
+                                    <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
+                                    <nav>
+                                        <NavLink href="index.html">:: Home</NavLink>
+                                        <NavLink href="index.html#research">:: Research</NavLink>
+                                        <NavLink href="index.html#notes">:: Notes (PDF)</NavLink>
+                                        <NavLink href="#" isActive={true}>:: Cool Links (Active)</NavLink>
+                                        <NavLink href="music.html">:: MUSIC</NavLink>
+                                        <NavLink href="index.html#contact">:: Email Me</NavLink>
+                                    </nav>
+                                </div>
+
+                                <div className="border-2 border-gray-400 p-2 bg-[#ffffcc] text-center">
+                                    <p className="font-bold text-red-600 animate-pulse">!! UPDATES !!</p>
+                                    <ul className="text-xs text-left list-none pl-1 space-y-2 mt-2">
+                                        <li className="font-bold text-blue-800">
+                                           &gt; Added "Crackpot Index" to links...
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* Main Content Area */}
+                            <div className="flex-grow">
+                                
+                                <section className="border-2 border-gray-300 p-4 mb-6 relative">
+                                    <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        The Web Ring
+                                    </h2>
+                                    <p className="mb-4 text-lg">
+                                        A collection of bookmarks, tools, and internet artifacts I frequent when procrastinating on my Hamiltonian mechanics problem sets.
+                                    </p>
+                                </section>
+
+                                {/* Links Categories */}
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    
+                                    {/* PHYSICS */}
+                                    <div className="border-2 border-gray-400 bg-[#f0f8ff] p-2">
+                                        <h3 className="font-bold border-b-2 border-gray-500 mb-2 text-blue-900 bg-white px-1">:: PHYSICS_CORE</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                                            <li>
+                                                <a href="https://arxiv.org/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">arXiv.org</a>
+                                                <span className="block text-xs text-gray-600">The daily bread. Fresh preprints every morning.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.feynmanlectures.caltech.edu/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">The Feynman Lectures</a>
+                                                <span className="block text-xs text-gray-600">Free online edition. Read Vol II for electromagnetism.</span>
+                                            </li>
+                                            <li>
+                                                <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/index.html" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">HyperPhysics</a>
+                                                <span className="block text-xs text-gray-600">The concept map UI is ancient and perfect.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://math.ucr.edu/home/baez/crackpot.html" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">The Crackpot Index</a>
+                                                <span className="block text-xs text-gray-600">John Baez's simple method for rating physics claims.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* WEB 1.0 & TECH */}
+                                    <div className="border-2 border-gray-400 bg-[#fff0f5] p-2">
+                                        <h3 className="font-bold border-b-2 border-gray-500 mb-2 text-purple-900 bg-white px-1">:: INTERNET_ARCHAEOLOGY</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                                            <li>
+                                                <a href="https://skins.webamp.org/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Winamp Skin Museum</a>
+                                                <span className="block text-xs text-gray-600">Infinite scroll of 2000s UI design.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.spacejam.com/1996/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Space Jam (1996)</a>
+                                                <span className="block text-xs text-gray-600">The original website, untouched by time.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://hackertyper.net/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Hacker Typer</a>
+                                                <span className="block text-xs text-gray-600">Look busy when the professor walks by.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.cameronsworld.net/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Cameron's World</a>
+                                                <span className="block text-xs text-gray-600">A love letter to GeoCities.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* MUSIC & AUDIO */}
+                                    <div className="border-2 border-gray-400 bg-[#e6ffe6] p-2">
+                                        <h3 className="font-bold border-b-2 border-gray-500 mb-2 text-green-900 bg-white px-1">:: AUDIO_RESOURCES</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                                            <li>
+                                                <a href="https://rateyourmusic.com/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">RateYourMusic</a>
+                                                <span className="block text-xs text-gray-600">For discovering obscure albums.</span>
+                                            </li>
+                                            <li>
+                                                <a href="http://radio.garden/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Radio Garden</a>
+                                                <span className="block text-xs text-gray-600">Listen to live radio anywhere on the globe.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://somafm.com/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">SomaFM</a>
+                                                <span className="block text-xs text-gray-600">Drone Zone is great for studying.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* TOOLS */}
+                                    <div className="border-2 border-gray-400 bg-[#ffffe0] p-2">
+                                        <h3 className="font-bold border-b-2 border-gray-500 mb-2 text-yellow-900 bg-white px-1">:: USEFUL_TOOLS</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                                            <li>
+                                                <a href="https://www.wolframalpha.com/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">WolframAlpha</a>
+                                                <span className="block text-xs text-gray-600">Because integration is hard.</span>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.overleaf.com/" target="_blank" className="text-blue-800 font-bold underline hover:bg-yellow-200">Overleaf</a>
+                                                <span className="block text-xs text-gray-600">Writing LaTeX without the pain.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                {/* Footer Link */}
+                                <div className="text-center mt-8">
+                                    <a href="index.html" className="text-blue-800 underline hover:bg-blue-800 hover:text-white px-2">
+                                        &lt;&lt; RETURN TO MAIN TERMINAL
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="mt-8 border-t-2 border-gray-400 pt-4 text-center text-xs text-gray-600">
+                            <p className="mb-2">Last updated: 2025</p>
+                            <div className="mt-4 text-[10px] text-gray-400">
+                                (c) Srinivasa Ramanujam 2025 | No Rights Reserved | Copyleft
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
