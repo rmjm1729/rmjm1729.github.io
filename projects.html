@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Ramanujam | Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #c0c0c0;
+        }
+        /* Custom scrollbar for that retro feel */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #dfdfdf; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border: 1px solid #c0c0c0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
+    <script type="text/babel" data-presets="react,env">
+        const { useState, useEffect } = React;
+
+        // --- PROJECT DATA (Add new projects here) ---
+        const projectsData = [
+            {
+                id: 1,
+                date: "Dec 13, 2025",
+                title: "Personal Website (Web 1.0 Style)",
+                tags: ["HTML", "React", "Tailwind", "Nostalgia"],
+                status: "In Progress",
+                description: "Building a personal portfolio site that rejects modern minimalism. Embracing the brutalist, utilitarian aesthetic of the early web (1995-2000). Features a functional visitor counter, random physics quotes, and a Windows 95 color palette.",
+                link: "index.html",
+                linkText: "View Home"
+            },
+            {
+                id: 2,
+                date: "Winter 2025",
+                title: "Stochastic Processes & Python",
+                tags: ["Python", "Math", "Simulation"],
+                status: "Active",
+                description: "Rigorous self-study of Stochastic Processes (Markov Chains, Random Walks) using 'Introduction to Stochastic Processes' by Hoel, Port, and Stone. Implementing simulations in Python to visualize convergence and ergodic theory.",
+                link: "#",
+                linkText: "Code Coming Soon"
+            }
+        ];
+
+        // --- COMPONENT: NAV LINK ---
+        const NavLink = ({ href, children, isActive }) => (
+            <a 
+                href={href} 
+                className={`block w-full px-2 py-1 underline font-bold mb-1 ${
+                    isActive 
+                    ? "bg-blue-800 text-white" 
+                    : "text-blue-800 hover:bg-blue-800 hover:text-white"
+                }`}
+            >
+                {children}
+            </a>
+        );
+
+        // --- COMPONENT: PROJECT CARD ---
+        const ProjectCard = ({ project }) => (
+            <div className="border-2 border-gray-400 bg-gray-100 mb-6 p-1 shadow-md">
+                <div className="bg-[#000080] text-white px-2 py-1 flex justify-between items-center text-xs font-bold">
+                    <span>{project.title}</span>
+                    <span>[{project.date}]</span>
+                </div>
+                <div className="p-3 border border-gray-500 mt-1 bg-white">
+                    <div className="flex gap-2 mb-3 text-xs">
+                        <span className="font-bold bg-gray-200 px-1 border border-gray-400">STATUS: {project.status}</span>
+                        {project.tags.map(tag => (
+                            <span key={tag} className="bg-yellow-100 px-1 border border-yellow-300 text-gray-600">#{tag}</span>
+                        ))}
+                    </div>
+                    <p className="mb-4 text-sm leading-relaxed font-serif">
+                        {project.description}
+                    </p>
+                    <a href={project.link} className="inline-block bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-black border-r-black px-3 py-1 text-xs font-bold active:border-t-black active:border-l-black active:border-b-white active:border-r-white hover:bg-gray-300">
+                        {project.linkText} ->
+                    </a>
+                </div>
+            </div>
+        );
+
+        function App() {
+            const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentTime(new Date().toLocaleTimeString());
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
+                    
+                    {/* Main Container */}
+                    <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
+                        
+                        {/* Header Bar */}
+                        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
+                            <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam / Projects_Log</h1>
+                            <div className="flex gap-2">
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
+                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
+                                <a href="index.html" className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer hover:bg-red-500 hover:text-white no-underline">X</a>
+                            </div>
+                        </div>
+
+                        {/* Layout Table */}
+                        <div className="flex flex-col md:flex-row gap-4">
+                            
+                            {/* Sidebar / Navigation */}
+                            <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
+                                    <div className="w-full h-24 bg-gray-300 border border-black mb-2 flex items-center justify-center text-gray-500 text-xs italic">
+                                        [IMG: working.gif]
+                                    </div>
+                                    <p className="font-bold text-xs mb-2">MODE: BUILDING</p>
+                                    <p className="text-xs">{currentTime}</p>
+                                </div>
+
+                                <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
+                                    <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
+                                    <nav>
+                                        <NavLink href="index.html">:: Home</NavLink>
+                                        <NavLink href="projects.html" isActive={true}>:: Projects</NavLink>
+                                        <NavLink href="index.html#notes">:: Notes (PDF)</NavLink>
+                                        <NavLink href="links.html">:: Cool Links</NavLink>
+                                        <NavLink href="music.html">:: MUSIC</NavLink>
+                                        <NavLink href="index.html#contact">:: Email Me</NavLink>
+                                    </nav>
+                                </div>
+
+                                <div className="border-2 border-gray-400 p-2 bg-black text-green-500 text-xs font-mono h-32 overflow-hidden">
+                                    <p>> init projects.db</p>
+                                    <p>> loading assets...</p>
+                                    <p>> done.</p>
+                                    <p className="animate-pulse">_</p>
+                                </div>
+                            </div>
+
+                            {/* Main Content Area */}
+                            <div className="flex-grow">
+                                
+                                {/* Intro Banner */}
+                                <div className="bg-yellow-100 border border-yellow-400 p-3 mb-6 text-sm text-yellow-900 flex gap-3 items-start">
+                                    <span className="text-2xl font-bold">⚠️</span>
+                                    <div>
+                                        <p className="font-bold">WORK IN PROGRESS</p>
+                                        <p>This page documents my attempts at physics, code, and avoiding entropy. Most links might be broken.</p>
+                                    </div>
+                                </div>
+
+                                {/* Projects List */}
+                                <section>
+                                    <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        Directory: ~/projects/
+                                    </h2>
+                                    
+                                    <div className="space-y-6">
+                                        {projectsData.map(project => (
+                                            <ProjectCard key={project.id} project={project} />
+                                        ))}
+                                    </div>
+
+                                    {/* Footer for the list */}
+                                    <div className="mt-8 text-center text-gray-500 text-xs border-t border-gray-300 pt-4">
+                                        [ End of File ]
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="mt-8 border-t-2 border-gray-400 pt-4 text-center text-xs text-gray-600">
+                            <p className="mb-2"> <a href="index.html" className="text-blue-800 underline">Return to Home</a> </p>
+                            <div className="mt-4 text-[10px] text-gray-400">
+                                (c) Srinivasa Ramanujam 2025 | Powered by Caffeine & Linear Algebra
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
