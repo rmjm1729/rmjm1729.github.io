@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ode to the Mets, and why it sticks… — rmjm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --fg: #f8f7f4;
+    --bg: #111110;
+    --muted: #41ff00;
+    --border: #e2e0da;
+    --accent: #ea3e09;
+    --tag-bg: #f8f7f4;
+    --tag-fg: #44443f;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Instrument Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+    --max: 860px;
+    --pad: clamp(1.5rem, 5vw, 4rem);
+    --prose-max: 640px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.15s;
+    font-family: var(--mono);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-links a:hover { color: var(--fg); }
+
+  /* BACK LINK */
+  .back-row {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2rem var(--pad) 0;
+  }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--fg); }
+
+  /* BLOG HEADER */
+  .blog-header {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5rem) var(--pad) clamp(2rem, 5vw, 3.5rem);
+    animation: fade-up 0.7s ease both;
+  }
+
+  .blog-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .blog-dot {
+    width: 3px;
+    height: 3px;
+    background: var(--muted);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .blog-category {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .blog-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-title em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .blog-lede {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(248, 247, 244, 0.55);
+    max-width: var(--prose-max);
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* RULE */
+  .rule {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* READING TIME STRIP */
+  .meta-strip {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 1rem var(--pad);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* PROSE */
+  .prose-wrapper {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4rem) var(--pad);
+    display: grid;
+    grid-template-columns: 1fr min(var(--prose-max), 100%) 1fr;
+    animation: fade-up 0.7s ease 0.1s both;
+  }
+
+  .prose {
+    grid-column: 2;
+  }
+
+  .prose p {
+    font-size: 16px;
+    line-height: 1.95;
+    color: rgba(248, 247, 244, 0.85);
+    margin-bottom: 1.6rem;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Drop cap on first paragraph */
+  .prose p.drop-cap::first-letter {
+    font-family: var(--serif);
+    font-size: 4.2rem;
+    line-height: 0.78;
+    float: left;
+    margin-right: 0.1em;
+    margin-top: 0.08em;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.75rem 0 0.75rem 1.5rem;
+    margin: 2.5rem 0;
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--fg);
+  }
+
+  /* Highlighted phrase */
+  .hl {
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Stage markers */
+  .stage {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--muted);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+
+  /* Song reference block */
+  .song-ref {
+    background: #1a1a18;
+    border: 1px solid rgba(226, 224, 218, 0.2);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .song-icon {
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  .song-name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .song-detail {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .song-dur {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* Final lines — displayed as a lyric block */
+  .lyric-block {
+    border-top: 1px solid rgba(226, 224, 218, 0.25);
+    border-bottom: 1px solid rgba(226, 224, 218, 0.25);
+    padding: 1.75rem 0;
+    margin: 2.5rem 0;
+  }
+
+  .lyric-block p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px !important;
+    line-height: 1.9 !important;
+    color: rgba(248, 247, 244, 0.7) !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* BLOG FOOTER */
+  .blog-footer-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad) clamp(3rem, 8vw, 5rem);
+  }
+
+  .blog-footer-inner {
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-footer-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .more-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .more-post-link {
+    font-size: 15px;
+    color: rgba(248, 247, 244, 0.65);
+    transition: color 0.15s;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .more-post-link:hover { color: var(--fg); }
+
+  .more-post-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2rem var(--pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress bar */
+  #progress-bar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: 2px;
+    background: var(--muted);
+    width: 0%;
+    z-index: 99;
+    transition: width 0.1s linear;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .prose-wrapper {
+      grid-template-columns: 1fr;
+    }
+    .prose { grid-column: 1; }
+    .blog-footer-inner { flex-direction: column; }
+    .song-ref { grid-template-columns: auto 1fr; }
+    .song-dur { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-name">rmjm</a>
+  <ul class="nav-links">
+    <li><a href="index.html#research">research?</a></li>
+    <li><a href="index.html#blog">blog</a></li>
+    <li><a href="index.html#notes">notes</a></li>
+    <li><a href="index.html#misc">misc</a></li>
+    <li><a href="index.html#about">about</a></li>
+    <li><a href="index.html#contact">contact</a></li>
+  </ul>
+</nav>
+
+<div class="back-row">
+  <a href="index.html#blog" class="back-link">← back to blog</a>
+</div>
+
+<div class="blog-header">
+  <div class="blog-meta-top">
+    <span class="blog-date">April 2026</span>
+    <span class="blog-dot"></span>
+    <span class="blog-category">Music · Essay</span>
+  </div>
+  <h1 class="blog-title">Ode to the Mets, and why it <em>sticks…</em></h1>
+  <p class="blog-lede">A five-minute fifty-second walk through grief — disorientation, denial, anger, bargaining, and finally, something like peace.</p>
+</div>
+
+<hr class="rule">
+
+<div class="meta-strip">
+  <span class="meta-item">~ 5 min read</span>
+  <span class="meta-item">The Strokes · The New Abnormal · 2020</span>
+</div>
+
+<hr class="rule">
+
+<div class="prose-wrapper">
+  <div class="prose">
+
+    <div class="song-ref">
+      <span class="song-icon">♫</span>
+      <div>
+        <p class="song-name">Ode to the Mets</p>
+        <p class="song-detail">The Strokes · The New Abnormal · Track 9</p>
+      </div>
+      <span class="song-dur">5:50</span>
+    </div>
+
+    <p class="drop-cap">Ode to the Mets is a song where I traverse through the five stages of grief in that 5:50 duration. It starts electronically and gets you thinking it's gonna have a <span class="hl">Daft Punk</span>-y sound — a red herring. And then comes the introduction of the villain, the orchestrator of doom: that damn electric guitar.</p>
+
+    <p>It feels disorienting, like being lost in a jungle with no sense of direction. The notes are the fourth and the tonic — repulsive by design, unresolved in a music theory sense, and also just what the listener feels. This change sets the emotional tone of the song. Its core is this guitar, which we shall follow.</p>
+
+    <p>And then comes the synth. Gives a sense of calm and direction, drowning the chaos of the guitar — possibly showing us the danger of <span class="hl">denial</span>. The guitar still exists but it is drowned. We think that the situation can be salvaged.</p>
+
+    <div class="pull-quote">
+      "The uneasiness is brought back with the lyrics whose melody is coupled with the repeated notes being hit in the background."
+    </div>
+
+    <p>But it ain't. The uneasiness returns. It is the layers of sound — all of them playing contrasting melodies — which gives the entire <em>New Abnormal</em> its amazing feel and texture. And <em>Ode to the Mets</em> is the pièce de résistance, the culmination of this masterpiece: a dive into Casablancas's mind after a fracture in his family.</p>
+
+    <p>The rhythm for the first two minutes is kept so beautifully by the synths and the guitar that you would have forgotten the need for drums — until Casablancas says it, solemnly, and I whisper along with him:</p>
+
+    <div class="pull-quote">
+      <span class="stage">denial → anger</span><br>
+      "Drums please, Fab."
+    </div>
+
+    <p>And Fab's got it all from that moment. The song has been elevated to a new dimension. It's a basic one-and-two-and, possibly the only part of the song which screams <span class="hl">familiarity</span>. Casablancas continues to say what's on his mind. The protagonist of this story would seem fine — until he starts to vent his emotions in an episode showcasing his anger: very subtly out of pitch, but still maintaining the scale and texture of the song.</p>
+
+    <p>This is the part that stands apart for me. The cohesion of the song is interwoven with the screams showing his agony.</p>
+
+    <p>And so it starts: the annoying guitar which at the start sounded much more like a mosquito buzzing. Casablancas continues <span class="hl">bargaining</span>, even quoting <em>"No it's not wrong but it's not right"</em> as he slowly spirals into depression.</p>
+
+    <p>And the final line is when he reaches <span class="hl">acceptance</span> — as the bass kicks into overdrive, with the guitar following his melody instead of playing that annoying riff, resolving old problems.</p>
+
+    <div class="lyric-block">
+      <p>
+        Old friends long forgotten, they all wait at the bottom of the ocean,<br>
+        Has swallowed the only thing that is left of us,<br>
+        So pardon the silence that we are hearing,<br>
+        it's turning into a deafening painful shameful roar.
+      </p>
+    </div>
+
+    <p>The imagery sounds very nihilistic and doesn't follow a meter — but the genius of Casablancas just continues to sing it without regard for the flow. It's the idea that has to be conveyed; it doesn't matter how it reaches, as long as it does.</p>
+
+    <p>He has accepted his fate, just like the listener. It's over, finally. Nothing matters now, does it? <em>Really.</em></p>
+
+  </div>
+</div>
+
+<div class="blog-footer-section">
+  <div class="blog-footer-inner">
+    <div>
+      <p class="blog-footer-label">Tags</p>
+      <div class="tags-row">
+        <span class="tag">music</span>
+        <span class="tag">the strokes</span>
+        <span class="tag">grief</span>
+        <span class="tag">essay</span>
+        <span class="tag">the new abnormal</span>
+      </div>
+    </div>
+    <div>
+      <p class="blog-footer-label">More from the blog</p>
+      <div class="more-posts">
+        <a href="#" class="more-post-link">
+          <span>Chekov's Gun and a Russian rendezvous at Madras</span>
+          <span class="more-post-date">May 2026</span>
+        </a>
+        <a href="#" class="more-post-link">
+          <span>Whiplash: On my tempo…</span>
+          <span class="more-post-date">Aug 2025</span>
+        </a>
+        <a href="#" class="more-post-link">
+          <span>Numb: 25 years later Chester Lives On</span>
+          <span class="more-post-date">Mar 2025</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Srinivasa Ramanujam - IISER Kolkata</p>
+  <p>26 May 2026</p>
+</footer>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  });
+</script>
+
+</body>
+</html>
