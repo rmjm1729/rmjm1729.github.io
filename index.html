@@ -1,284 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Srinivasa Ramanujam</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React and ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <!-- Babel to translate JSX in the browser -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <style>
-        body {
-            background-color: #c0c0c0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srinivasa Ramanujam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --fg: #f8f7f4;
+    --bg: #111110;
+    --muted: #41ff00;
+    --border: #e2e0da;
+    --accent: #1a1a18;
+    --tag-bg: #f8f7f4;
+    --tag-fg: #44443f;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Instrument Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+    --max: 860px;
+    --pad: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.15s;
+    font-family: var(--mono);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-links a:hover { color: var(--fg); }
+
+  /* HERO */
+  .hero {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(5rem, 14vw, 10rem) var(--pad) clamp(3rem, 8vw, 6rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .hero-left {}
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 7vw, 5.2rem);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .hero-right {
+    padding-bottom: 0.4rem;
+  }
+
+  .hero-bio {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 320px;
+    margin-left: auto;
+  }
+
+  .hero-bio strong {
+    color: var(--fg);
+    font-weight: 500;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1.5rem;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* DIVIDER */
+  .rule {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 5rem) var(--pad);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+  }
+
+  /* RESEARCH */
+  .research-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .research-item {
+    background: var(--bg);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem 1.5rem;
+    align-items: start;
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .research-item:hover { background: #ea3e09; }
+
+  .research-year {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    padding-top: 2px;
+    min-width: 36px;
+  }
+
+  .research-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .research-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .research-tag {
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* BLOG */
+  .blog-list {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: opacity 0.15s;
+    cursor: pointer;
+  }
+
+  .blog-item:hover { opacity: 0.6; }
+
+  .blog-title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .blog-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  /* NOTES */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .note-card {
+    background: var(--bg);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .note-card:hover { background: #ea3e09; }
+
+  .note-icon {
+    font-size: 18px;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .note-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .note-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* MUSIC */
+  .music-list {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .track {
+    background: var(--bg);
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .track:hover { background: #ea3e09; }
+
+  .track-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    width: 20px;
+    text-align: right;
+  }
+
+  .track-info {}
+
+  .track-name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .track-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .track-dur {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .about-text p strong { color: var(--fg); font-weight: 500; }
+
+  .about-sidebar {}
+
+  .sidebar-block {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    font-weight: 300;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--fg);
+  }
+
+  /* CONTACT */
+  .contact-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+  }
+
+  .contact-link:hover {
+    color: var(--fg);
+    border-color: var(--fg);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2rem var(--pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left, .hero-right {
+    animation: fade-up 0.7s ease both;
+  }
+
+  .hero-right { animation-delay: 0.1s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .hero-bio { max-width: 100%; margin-left: 0; }
+    .about-layout { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .research-item { grid-template-columns: 1fr; }
+    .research-year { display: none; }
+  }
+</style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel" data-presets="react,env">
-        const { useState, useEffect } = React;
+<nav>
+  <span class="nav-name">rmjm</span>
+  <ul class="nav-links">
+    <li><a href="#research">research?</a></li>
+    <li><a href="#blog">blog</a></li>
+    <li><a href="#notes">notes</a></li>
+    <li><a href="#misc">misc</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
 
-        const quotes = [
-            { text: "God does not play dice with the universe.", author: "Albert Einstein" },
-            { text: "If you think you understand quantum mechanics, you don't understand quantum mechanics.", author: "Richard Feynman" },
-            { text: "Physics is like sex: sure, it may give some practical results, but that's not why we do it.", author: "Richard Feynman" },
-            { text: "Not only is the Universe stranger than we think, it is stranger than we can think.", author: "Werner Heisenberg" },
-            { text: "In physics, you don't have to go around making trouble for yourself - nature does it for you.", author: "Frank Wilczek" },
-            { text: "All science is either physics or stamp collecting.", author: "Ernest Rutherford" },
-            { text: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
-            { text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" },
-            { text: "We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.", author: "Stephen Hawking" },
-            { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
-            { text: "Quantum mechanics makes absolutely no sense.", author: "Roger Penrose" },
-            { text: "The good thing about science is that it's true whether or not you believe in it.", author: "Neil deGrasse Tyson" },
-            { text: "There is nothing new to be discovered in physics now. All that remains is more and more precise measurement.", author: "Lord Kelvin (1900)" },
-            { text: "If I have seen further it is by standing on the shoulders of Giants.", author: "Isaac Newton" },
-            { text: "Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organization of the entire tapestry.", author: "Richard Feynman" },
-            { text: "The most incomprehensible thing about the world is that it is comprehensible.", author: "Albert Einstein" },
-            { text: "Everything we call real is made of things that cannot be regarded as real.", author: "Niels Bohr" },
-            { text: "It is wrong to think that the task of physics is to find out how nature is. Physics concerns what we can say about nature.", author: "Niels Bohr" },
-            { text: "Prediction is very difficult, especially if it's about the future.", author: "Niels Bohr" },
-            { text: "Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.", author: "Stephen Hawking" }
-        ];
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-label">aspiring physicist</p>
+    <h1>Srinivasa<br><em>Ramanujam</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-bio">
+      Fourth-year physics student at <strong>IISER Kolkata</strong>. Currently a summer student at IMSc, studying <strong>condensed matter</strong> under Prof. Ajit Balram. Drawn to Quantum Information, Tamil films, Music and being nonchallant. Website is perpetually under construction.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">quantum information</span>
+      <span class="tag">condensed matter</span>
+      <span class="tag">IISER Kolkata</span>
+      <span class="tag">music</span>
+      <span class="tag">தமிழ்</span>
+      <span class="tag">quizzing</span>
+      <span class="tag">fifa</span>
+    </div>
+  </div>
+</div>
 
-        const NavLink = ({ href, children }) => (
-            <a 
-                href={href} 
-                className="block w-full text-blue-800 hover:bg-blue-800 hover:text-white px-2 py-1 underline font-bold mb-1"
-                onClick={(e) => {
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        const targetId = href.replace('#', '');
-                        const element = document.getElementById(targetId);
-                        if (element) {
-                            element.scrollIntoView({ behavior: 'auto' });
-                        }
-                    }
-                }}
-            >
-                {children}
-            </a>
-        );
+<hr class="rule">
 
-        function App() {
-            const [visitorCount, setVisitorCount] = useState("...");
-            const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-            const [randomQuote, setRandomQuote] = useState(null);
+<section id="research">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Research & Notes</h2>
+  </div>
+  <div class="research-grid">
+    <div class="research-item">
+      <span class="research-year">2025</span>
+      <div>
+        <p class="research-title">Condensed matter : summer project</p>
+        <p class="research-desc">Summer studentship at IMSc under Prof. Ajit Balram. Notes and findings posted as they develop.</p>
+      </div>
+      <span class="research-tag">ongoing</span>
+    </div>
+    <div class="research-item">
+      <span class="research-year">2024</span>
+      <div>
+        <p class="research-title">Quantum information — Reading Project</p>
+        <p class="research-desc">A Second Year Reading Project @IIT-M. Notes will be uploaded shortly</p>
+      </div>
+      <span class="research-tag">notes</span>
+    </div>
+    <div class="research-item">
+      <span class="research-year">2023-2028??</span>
+      <div>
+        <p class="research-title">Class Notes & Materials</p>
+        <p class="research-desc">Notes and Materials for coursework @IISER Kolkata</p>
+      </div>
+      <span class="research-tag">notes</span>
+    </div>
+  </div>
+</section>
 
-            useEffect(() => {
-                const timer = setInterval(() => {
-                    setCurrentTime(new Date().toLocaleTimeString());
-                }, 1000);
+<hr class="rule">
 
-                if (quotes.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * quotes.length);
-                    setRandomQuote(quotes[randomIndex]);
-                }
+<section id="blog">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Blog</h2>
+  </div>
+  <div class="blog-list">
+    <div class="blog-item">
+      <span class="blog-title">Chekov's Gun and a Russian rendezvous at Madras</span>
+      <span class="blog-meta">May 2026</span>
+    </div>
+    <div class="blog-item">
+      <span class="blog-title">Ode to the Mets, and why it sticks...</span>
+      <span class="blog-meta">April 2026</span>
+    </div>
+       <div class="blog-item">
+      <span class="blog-title">Whiplash: On my tempo...</span>
+      <span class="blog-meta">Aug 2025</span>
+    <div class="blog-item">
+      <span class="blog-title">Numb: 25 years later Chester Lives On</span>
+      <span class="blog-meta">Mar 2025</span>
+    </div>
+ 
+    </div>
+    <div class="blog-item">
+      <span class="blog-title">Older Blogs</span>
+      <span class="blog-meta">click here</span>
+    </div>
+  </div>
+</section>
 
-                const updateCounter = async () => {
-                    try {
-                        const response = await fetch('https://api.counterapi.dev/v1/rmjm1729-github-io/homepage/up');
-                        const data = await response.json();
-                        setVisitorCount(data.count);
-                    } catch (err) {
-                        console.log("Counter API Error:", err);
-                        setVisitorCount(14023);
-                    }
-                };
-                
-                updateCounter();
+<hr class="rule">
 
-                return () => clearInterval(timer);
-            }, []);
+<section id="music">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Music and FIlms</h2>
+  </div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <span class="note-icon">∮</span>
+      <p class="note-title">MBDTF & Graduation</p>
+      <p class="note-date">Kanye West</p>
+    </div>
+    <div class="note-card">
+      <span class="note-icon">ψ</span>
+      <p class="note-title">Oh Kadhal Kanmani</p>
+      <p class="note-date">Mani Ratnam · AR. Rahman</p>
+    </div>
+    <div class="note-card">
+      <span class="note-icon">∂</span>
+      <p class="note-title">Dire Straits</p>
+      <p class="note-date">Mark Knofler's solos </p>
+    </div>
+    <div class="note-card">
+      <span class="note-icon">≡</span>
+      <p class="note-title">Link to my Spotify</p>
+      <p class="note-date">rmjm</p>
+    </div>
+    <div class="note-card">
+      <span class="note-icon">+</span>
+      <p class="note-title">Link to my Letterboxd</p>
+      <p class="note-date">sydneysriney</p>
+    </div>
+  </div>
+</section>
 
-            return (
-                <div className="min-h-screen bg-[#c0c0c0] font-mono p-2 md:p-8 text-sm md:text-base">
-                    
-                    {/* Main Container */}
-                    <div className="max-w-5xl mx-auto bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 p-1 shadow-xl">
-                        
-                        {/* Header Bar */}
-                        <div className="bg-[#000080] text-white p-2 flex justify-between items-center mb-4 border-2 border-gray-400 border-inset">
-                            <h1 className="font-bold text-lg tracking-widest uppercase">Srinivasa_Ramanujam.html</h1>
-                            <div className="flex gap-2">
-                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">_</div>
-                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">[]</div>
-                                <div className="w-4 h-4 bg-gray-300 border border-gray-600 text-black flex items-center justify-center text-xs font-bold shadow-sm cursor-pointer">X</div>
-                            </div>
-                        </div>
+<hr class="rule">
 
-                        {/* Layout Table */}
-                        <div className="flex flex-col md:flex-row gap-4">
-                            
-                            {/* Sidebar / Navigation */}
-                            <div className="w-full md:w-48 flex-shrink-0">
-                                <div className="border-2 border-gray-400 p-2 bg-[#f0f0f0] mb-4 text-center">
-                                    <img 
-                                        src="assets/0_g8DsGYbSjK469LBY.jpg" 
-                                        alt="Profile" 
-                                        className="w-full h-auto border border-black mb-2 grayscale contrast-125"
-                                    />
-                                    <p className="font-bold text-xs mb-2">STATUS: RESEARCH MODE</p>
-                                    <p className="text-xs">{currentTime}</p>
-                                </div>
+<section id="music">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Music</h2>
+  </div>
+  <div class="music-list">
+    <div class="track">
+      <span class="track-num">1</span>
+      <div class="track-info">
+        <p class="track-name">Avalin Nizhal</p>
+        <p class="track-label">instrumental · 2026</p>
+      </div>
+      <span class="track-dur">—:——</span>
+    </div>
+    <div class="track">
+      <span class="track-num">2</span>
+      <div class="track-info">
+        <p class="track-name">Untitled</p>
+        <p class="track-label">draft · 2026</p>
+      </div>
+      <span class="track-dur">—:——</span>
+    </div>
+    
+  </div>
+</section>
 
-                                <div className="border-2 border-gray-400 p-2 bg-[#e0e0e0] mb-4">
-                                    <p className="font-bold border-b-2 border-gray-500 mb-2 text-center">[ MENU ]</p>
-                                    <nav>
-                                        <NavLink href="#home">:: Home</NavLink>
-                                        <NavLink href="#now">:: Now</NavLink>
-                                        <NavLink href="projects.html">:: Projects</NavLink>
-                                        <NavLink href="#notes">:: Notes (PDF)</NavLink>
-                                        <NavLink href="#reading">:: Reading</NavLink>
-                                        <NavLink href="links.html">:: Cool Links</NavLink>
-                                        <NavLink href="music.html">:: MUSIC</NavLink>
-                                        <NavLink href="#contact">:: Email Me</NavLink>
-                                    </nav>
-                                </div>
+<hr class="rule">
 
-                                <div className="border-2 border-gray-400 p-2 bg-[#ffffcc] text-center">
-                                    <p className="font-bold text-red-600 animate-pulse">!! UPDATES !!</p>
-                                    
-                                    <ul className="text-xs text-left list-none pl-1 space-y-2 mt-2">
-                                        <li className="font-bold text-blue-800">
-                                           &gt; 05/25: Summer internship begins @IMSc Chennai
-                                        </li>
-                                        <li className="border-t border-gray-400 pt-1">
-                                           &gt; 05/25: Added reading list
-                                        </li>
-                                        <li className="border-t border-gray-400 pt-1 text-gray-500">
-                                            &gt; 12/13: First Project Entry<br/>
-                                            &gt; 11/29: Hello World
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-text">
+      <p>
+        I'm a fourth-year physics student at <strong>IISER Kolkata</strong>, currently spending the summer as a research student at IMSc Chennai under <strong>Prof Ajit Balram</strong>, where I'm reading about Quantum Hall Effect. My longer-term interest is in quantum information theory specifically the geometry of quantum states, entanglement, and what it all means.
+      </p>
+      <p>
+        Outside the lab, I write essays, fragments, whatever forms itself. I listen to music, play cricket and I watch a lot of films. I'm trying to build a reading habit and slowly learning conversational German (slowly being the operative word).
+      </p>
+      <p>
+        I'm proudly <strong>Tamil</strong>. The language, the literature, the food, the people : it all shapes how I think. This site is a place to collect what I make and what I'm thinking about.
+      </p>
+    </div>
+    <div class="about-sidebar">
+      <div class="sidebar-block">
+        <p class="sidebar-label">Currently</p>
+        <ul class="sidebar-list">
+          <li>Summer student, IMSc Chennai</li>
+          <li>David Tong is hand holding me</li>
+          <li>Learning German</li>
+        </ul>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-label">Interests</p>
+        <ul class="sidebar-list">
+          <li>Quantum information</li>
+          <li>Condensed matter</li>
+          <li>Machine Learning</li>
+          <li>Cinema</li>
+          <li>Music</li>
+        </ul>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-label">Affiliation</p>
+        <ul class="sidebar-list">
+          <li>IISER Kolkata BS-MS, Physics</li>
+          <li>IMSc Chennai - Summer 2026</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-                            {/* Main Content Area */}
-                            <div className="flex-grow">
-                                
-                                {/* Home Section */}
-                                <section id="home" className="border-2 border-gray-300 p-4 mb-6 relative">
-                                    <h2 className="text-xl font-bold bg-gray-200 inline-block px-2 border border-black mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                        Welcome to my world wide web.
-                                    </h2>
-                                    <p className="mb-4 text-lg">
-                                        You have reached my personal homepage. I study physics and listen to music. This website is perpetually under construction.
-                                    </p>
-                                    
-                                    {/* Terminal */}
-                                    <div className="bg-black text-green-500 p-4 font-mono text-sm border-2 border-gray-600 mb-4 overflow-x-auto shadow-inner">
-                                        {`> All of life is a random walk`}
-                                    </div>
+<hr class="rule">
 
-                                    {/* Random Quote Section */}
-                                    {randomQuote && (
-                                        <div className="mt-6 border-l-4 border-gray-400 pl-4 py-2 italic bg-gray-100">
-                                           <p className="font-serif text-gray-800 text-lg">"{randomQuote.text}"</p>
-                                           <p className="text-right text-sm font-bold mt-2">— {randomQuote.author}</p>
-                                        </div>
-                                    )}
-                                </section>
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Contact</h2>
+  </div>
+  <p style="font-size:15px; color:var(--muted); margin-bottom:1.5rem; max-width:480px;">
+    Feel free to reach out about physics, music, films, or anything else.
+  </p>
+  <div class="contact-row">
+    <a href="mailto:msr23ms242@iiserkol.ac.in" class="contact-link">&#9632; email</a>
+    <a href="https://github.com/rmjm1729" class="contact-link">&#9632; github</a>
+    <a href="https://www.linkedin.com/in/srinivasa-ramanujam-89aabb287/" class="contact-link">&#9632; linkedin</a>
+  </div>
+</section>
 
-                                {/* NOW Section */}
-                                <section id="now" className="border-2 border-gray-300 p-4 mb-6">
-                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Now <span className="text-gray-500 font-normal text-xs">(what I'm actually doing)</span></h3>
-                                    
-                                    <div className="bg-[#fffff0] border border-gray-400 p-3 mb-3 text-sm">
-                                        <p className="font-bold text-blue-900 mb-1">[LOCATION: Chennai, Tamil Nadu]</p>
-                                        <p className="mb-2">
-                                            Summer research intern at <span className="font-bold">IMSc (Institute of Mathematical Sciences)</span> under Prof. Ajit Balram. Working on <span className="font-bold">topological materials</span> in condensed matter physics.
-                                        </p>
-                                        <p className="text-gray-600 text-xs italic">Duration: ~6–8 weeks, Summer 2025</p>
-                                    </div>
+<footer>
+  <p>Srinivasa Ramanujam - IISER Kolkata</p>
+  <p>26 May 2026</p>
+</footer>
 
-                                    <table className="w-full border-collapse border border-gray-400 text-sm">
-                                        <tbody>
-                                            <tr className="bg-gray-100">
-                                                <td className="border border-gray-400 p-2 font-bold w-24">READING</td>
-                                                <td className="border border-gray-400 p-2">Meditations — Marcus Aurelius</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-400 p-2 font-bold">RUNNING</td>
-                                                <td className="border border-gray-400 p-2">Every morning. Building up to 35–40 min.</td>
-                                            </tr>
-                                            <tr className="bg-gray-100">
-                                                <td className="border border-gray-400 p-2 font-bold">STUDYING</td>
-                                                <td className="border border-gray-400 p-2">Topological insulators, Berry phase, condensed matter</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-400 p-2 font-bold">TRYING</td>
-                                                <td className="border border-gray-400 p-2">Less phone. More thinking. Waking up early.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </section>
+</body>
+</html>
 
-                                {/* Projects Log */}
-                                <section id="research" className="mb-6">
-                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Projects Log</h3>
-                                    <div className="p-6 text-center text-gray-500 border-2 border-dashed border-gray-300 bg-gray-50">
-                                        [ Summer Project @IMSc in progress. Updates coming soon... ]
-                                    </div>
-                                </section>
 
-                                {/* Resources Table */}
-                                <section id="notes" className="mb-6">
-                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Resource Directory</h3>
-                                    <table className="w-full border-collapse border-2 border-black text-sm">
-                                        <thead>
-                                            <tr className="bg-gray-300">
-                                                <th className="border border-black p-2 text-left">Filename</th>
-                                                <th className="border border-black p-2 text-left">Description</th>
-                                                <th className="border border-black p-2 text-center">Size</th>
-                                                <th className="border border-black p-2 text-center">D/L</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="border border-black p-2 font-bold text-blue-800">CLASS_MECH.PDF</td>
-                                                <td className="border border-black p-2">Lagrangian Mechanics Notes (Soon)</td>
-                                                <td className="border border-black p-2 text-center">???MB</td>
-                                                <td className="border border-black p-2 text-center cursor-pointer hover:bg-gray-200">[💾]</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </section>
 
-                                {/* Reading List */}
-                                <section id="reading" className="mb-6">
-                                    <h3 className="font-bold border-b-4 border-black mb-4">:: Reading List <span className="text-gray-500 font-normal text-xs">— Summer 2025</span></h3>
-                                    <table className="w-full border-collapse border-2 border-black text-sm">
-                                        <thead>
-                                            <tr className="bg-gray-300">
-                                                <th className="border border-black p-2 text-left">Status</th>
-                                                <th className="border border-black p-2 text-left">Title</th>
-                                                <th className="border border-black p-2 text-left">Author</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="bg-[#ffffcc]">
-                                                <td className="border border-black p-2 font-bold text-green-700">[READING]</td>
-                                                <td className="border border-black p-2 italic">Meditations</td>
-                                                <td className="border border-black p-2">Marcus Aurelius</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-black p-2 text-gray-500">[QUEUED]</td>
-                                                <td className="border border-black p-2 italic">Sophie's World</td>
-                                                <td className="border border-black p-2">Jostein Gaarder</td>
-                                            </tr>
-                                            <tr className="bg-gray-50">
-                                                <td className="border border-black p-2 text-gray-500">[QUEUED]</td>
-                                                <td className="border border-black p-2 italic">The Consolations of Philosophy</td>
-                                                <td className="border border-black p-2">Alain de Botton</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-black p-2 text-gray-500">[QUEUED]</td>
-                                                <td className="border border-black p-2 italic">Zen and the Art of Motorcycle Maintenance</td>
-                                                <td className="
