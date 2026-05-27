@@ -1,153 +1,545 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Numb – Why it resonates 24 years later | Blog | Srinivasa Ramanujam</title>
-<meta name="description" content="Blog: Numb by Linkin Park — reflection on identity crisis and why it still resonates.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numb: 25 Years Later Chester Lives On — rmjm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f7fafc; --card:#fff; --muted:#51606a; --accent:#06b6d4; --title:#0b1220; --glass: rgba(2,6,23,0.06);
-    --accent-2:#60a5fa;
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --fg: #f8f7f4;
+    --bg: #111110;
+    --muted: #41ff00;
+    --border: #e2e0da;
+    --accent: #ea3e09;
+    --tag-bg: #f8f7f4;
+    --tag-fg: #44443f;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Instrument Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+    --max: 860px;
+    --pad: clamp(1.5rem, 5vw, 4rem);
+    --prose-max: 640px;
   }
-  .dark {
-    --bg:#071021; --card:#0b1220; --muted:#9aa6b2; --accent:#6ee7b7; --title:#e6eef3; --accent-2:#3aa0d9;
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--title); transition:background .25s,color .25s;}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
 
-  .layout{display:grid;min-height:100vh;gap:24px;padding:28px;grid-template-columns:260px 1fr;}
-  .sidebar{padding:20px;background:var(--card);border-radius:14px;box-shadow:0 10px 30px var(--glass);position:sticky;top:28px;display:flex;flex-direction:column;gap:18px}
-  .sidebar h1{margin:0;font-size:1.2rem}
-  .sidebar p{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
-  .sidebar nav ul{list-style:none;padding:0;margin:0}
-  .sidebar nav li{margin:12px 0}
-  .sidebar a{color:var(--title)}
+  a { color: inherit; text-decoration: none; }
 
-  main.content{max-width:920px;margin:0 auto}
-  .card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 10px 30px var(--glass);margin-bottom:22px}
-  .card h2{margin-top:0}
-  .muted{color:var(--muted)}
-  blockquote{border-left:4px solid var(--accent);padding-left:12px;margin:16px 0;color:var(--muted);font-style:italic}
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
 
-  /* blog actions */
-  .blog-actions button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer}
-  .blog-actions{margin:12px 0}
-  .comments-section{margin-top:20px}
-  .comments-section form{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-  .comments-section input,.comments-section textarea{padding:8px;border:1px solid #ccc;border-radius:8px;font-family:inherit}
-  .comments-section button{align-self:flex-start;padding:6px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
 
-  #theme-toggle{position:fixed;top:20px;right:20px;width:44px;height:44px;border:none;border-radius:50%;background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,0.06);cursor:pointer;font-size:18px}
-  @media(max-width:840px){
-    .layout{grid-template-columns:1fr;padding:16px}
-    .sidebar{position:static;width:100%;border-radius:10px}
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.15s;
+    font-family: var(--mono);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-links a:hover { color: var(--fg); }
+
+  /* BACK LINK */
+  .back-row {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2rem var(--pad) 0;
+  }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--fg); }
+
+  /* BLOG HEADER */
+  .blog-header {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5rem) var(--pad) clamp(2rem, 5vw, 3.5rem);
+    animation: fade-up 0.7s ease both;
+  }
+
+  .blog-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .blog-dot {
+    width: 3px;
+    height: 3px;
+    background: var(--muted);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .blog-category {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .blog-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-title em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .blog-lede {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(248, 247, 244, 0.55);
+    max-width: var(--prose-max);
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* RULE */
+  .rule {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 1rem var(--pad);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* PROSE */
+  .prose-wrapper {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4rem) var(--pad);
+    display: grid;
+    grid-template-columns: 1fr min(var(--prose-max), 100%) 1fr;
+    animation: fade-up 0.7s ease 0.1s both;
+  }
+
+  .prose {
+    grid-column: 2;
+  }
+
+  .prose p {
+    font-size: 16px;
+    line-height: 1.95;
+    color: rgba(248, 247, 244, 0.85);
+    margin-bottom: 1.6rem;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Drop cap */
+  .prose p.drop-cap::first-letter {
+    font-family: var(--serif);
+    font-size: 4.2rem;
+    line-height: 0.78;
+    float: left;
+    margin-right: 0.1em;
+    margin-top: 0.08em;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* Lyric blockquote */
+  .prose blockquote {
+    border-left: 2px solid var(--accent);
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    margin: 2rem 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(248, 247, 244, 0.9);
+  }
+
+  /* Highlighted phrase */
+  .hl {
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Song reference block */
+  .song-ref {
+    background: #1a1a18;
+    border: 1px solid rgba(226, 224, 218, 0.2);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .song-icon {
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  .song-name {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .song-detail {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .song-dur {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* RIP sign-off */
+  .rip {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(226, 224, 218, 0.2);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* BLOG FOOTER */
+  .blog-footer-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad) clamp(3rem, 8vw, 5rem);
+  }
+
+  .blog-footer-inner {
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-footer-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .more-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .more-post-link {
+    font-size: 15px;
+    color: rgba(248, 247, 244, 0.65);
+    transition: color 0.15s;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .more-post-link:hover { color: var(--fg); }
+
+  .more-post-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2rem var(--pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress bar */
+  #progress-bar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: 2px;
+    background: var(--muted);
+    width: 0%;
+    z-index: 99;
+    transition: width 0.1s linear;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .prose-wrapper { grid-template-columns: 1fr; }
+    .prose { grid-column: 1; }
+    .blog-footer-inner { flex-direction: column; }
+    .song-ref { grid-template-columns: auto 1fr; }
+    .song-dur { display: none; }
   }
 </style>
 </head>
 <body>
-<button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-<div class="layout">
-  <aside class="sidebar">
-    <h1><a href="index.html">Srinivasa Ramanujam</a></h1>
-    <p><em>My Homepage</em></p>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="music.html">Music</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="blog.html" aria-current="page">Blog</a></li>
-      </ul>
-    </nav>
-  </aside>
 
-  <main class="content">
-    <div class="card">
-      <h2>Numb – Why it resonates 24 years later</h2>
-      <p class="muted">Posted on 4 April 2025</p>
-      <div class="blog-actions">
-        <button id="like-btn">👍 Like (<span id="like-count">0</span>)</button>
-      </div>
-      <article>
-        <p>The most compelling aspect of “Numb” is its lyrical depiction of identity crisis and emotional suffocation. The lyrics indicate the frustration and internal conflict of everyone (you, me, the guy sitting beside the tree staring into the fire extinguisher in front of him) struggling to live up to the expectations imposed on them.</p> <blockquote>“I'm tired of being what you want me to be<br>Feeling so faithless, lost under the surface”</blockquote> <p>immediately sets the tone for the anthem: a confessional outpouring of a youth in despair rooted in the inability to conform. These lines are both specific and universal, allowing me to project my experiences of being an 'Imposter' frog in this infinite square well of misery.</p> <blockquote>“All I want to do<br>Is be more like me and be less like you.”</blockquote> <p>A cry for self-expression, for autonomy over one’s decisions, capturing the generational tension between individuality and conformity. Whether read as a teenager speaking to an overbearing parent, a student under the pressure of academic performance, or even a creative soul fighting against societal norms, the plea is clear: let me be myself. When I heard this in 11th grade, it was the first, freshman in college, the second and currently the third.</p> <p>The repeated use of the word “Numb” emphasises the fact that society asks you to take it in while it shoves more and more. Emotional numbness is presented as both a symptom and a defense mechanism—one becomes numb not only because of trauma or stress, but also because it is the only way to survive under relentless scrutiny and judgment. The song has conversed to me over more than a hundred streams that being Numb isn't a weakness. It reflects resilience through detachment.</p> <p>Numb is an anthem for us, felt misunderstood, overburdened, and burnt out. It reflects the dissonance between creative trailblazers who wanted to be and who they were being forced to become.<br>RIP Chester</p>
-      </article>
-      <div class="comments-section">
-        <h3>Comments</h3>
-        <ul id="comments-list"></ul>
-        <form id="comment-form">
-          <input type="text" id="comment-name" placeholder="Your name" required />
-          <textarea id="comment-text" placeholder="Your comment" required></textarea>
-          <button type="submit">Add Comment</button>
-        </form>
-      </div>
-      <p><a href="blog.html">← Back to Blog</a></p>
-    </div>
-    <footer style="text-align:center;margin-top:18px;color:var(--muted)">© 2025 Srinivasa Ramanujam</footer>
-  </main>
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-name">rmjm</a>
+  <ul class="nav-links">
+    <li><a href="index.html#research">research?</a></li>
+    <li><a href="index.html#blog">blog</a></li>
+    <li><a href="index.html#notes">notes</a></li>
+    <li><a href="index.html#misc">misc</a></li>
+    <li><a href="index.html#about">about</a></li>
+    <li><a href="index.html#contact">contact</a></li>
+  </ul>
+</nav>
+
+<div class="back-row">
+  <a href="index.html#blog" class="back-link">← back to blog</a>
 </div>
 
+<div class="blog-header">
+  <div class="blog-meta-top">
+    <span class="blog-date">March 2025</span>
+    <span class="blog-dot"></span>
+    <span class="blog-category">Music · Essay</span>
+  </div>
+  <h1 class="blog-title">Numb: 25 years later, <em>Chester lives on</em></h1>
+  <p class="blog-lede">On identity crisis, emotional suffocation, and an anthem that keeps finding you at every age.</p>
+</div>
+
+<hr class="rule">
+
+<div class="meta-strip">
+  <span class="meta-item">~ 3 min read</span>
+  <span class="meta-item">Linkin Park · Meteora · 2003</span>
+</div>
+
+<hr class="rule">
+
+<div class="prose-wrapper">
+  <div class="prose">
+
+    <div class="song-ref">
+      <span class="song-icon">♫</span>
+      <div>
+        <p class="song-name">Numb</p>
+        <p class="song-detail">Linkin Park · Meteora · Track 9</p>
+      </div>
+      <span class="song-dur">3:05</span>
+    </div>
+
+    <p class="drop-cap">The most compelling aspect of "Numb" is its lyrical depiction of <span class="hl">identity crisis</span> and emotional suffocation. The lyrics indicate the frustration and internal conflict of everyone: you, me, the guy sitting beside the tree staring into the fire extinguisher in front of him struggling to live up to the expectations imposed on him.</p>
+
+    <blockquote>
+      "I'm tired of being what you want me to be<br>
+      Feeling so faithless, lost under the surface"
+    </blockquote>
+
+    <p>This immediately sets the tone for the anthem: a confessional outpouring of a youth in despair, rooted in the inability to conform. These lines are both specific and universal, allowing me to project my experiences of being an 'Imposter' frog in this infinite square well of misery.</p>
+
+    <blockquote>
+      "All I want to do<br>
+      Is be more like me and be less like you."
+    </blockquote>
+
+    <p>Is a cry for self-expression, for autonomy over one's decisions capturing the generational tension between individuality and conformity. Whether read as an angsty teenager speaking to an overbearing parent, a student under the pressure of academic performance, or a creative soul fighting against societal norms, the plea is clear: <span class="hl">let me be myself</span>. When I heard this in 11th grade, it was the first, Freshman in college, the second. And currently, the third.</p>
+
+    <p>The repeated use of the word "Numb" emphasises the fact that society asks you to take it in while it shoves more and more. Emotional numbness is presented as both a symptom and a defense mechanism — one becomes numb not because of trauma or stress, but as it is the only way to survive under relentless scrutiny and judgment. The song has conversed with me over more than a hundred streams and has told me <span class="hl">being numb isn't a weakness</span>, just a coping mechanism detachment.</p>
+
+    <p>Numb is an anthem for those of us who felt misunderstood, overburdened, and burnt out. It reflects the dissonance between who creative trailblazers wanted to be and who they were being forced to become.</p>
+
+    <p class="rip">RIP Chester Bennington — 1976–2017</p>
+
+  </div>
+</div>
+
+<div class="blog-footer-section">
+  <div class="blog-footer-inner">
+    <div>
+      <p class="blog-footer-label">Tags</p>
+      <div class="tags-row">
+        <span class="tag">music</span>
+        <span class="tag">linkin park</span>
+        <span class="tag">chester bennington</span>
+        <span class="tag">essay</span>
+        <span class="tag">identity</span>
+      </div>
+    </div>
+    <div>
+      <p class="blog-footer-label">More from the blog</p>
+      <div class="more-posts">
+        <a href="odetomets.html" class="more-post-link">
+          <span>Ode to the Mets, and why it sticks…</span>
+          <span class="more-post-date">Apr 2026</span>
+        </a>
+        <a href="#" class="more-post-link">
+          <span>Whiplash: On my tempo…</span>
+          <span class="more-post-date">Aug 2025</span>
+        </a>
+        <a href="#" class="more-post-link">
+          <span>Chekov's Gun and a Russian rendezvous at Madras</span>
+          <span class="more-post-date">May 2026</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Srinivasa Ramanujam - IISER Kolkata</p>
+  <p>26 May 2026</p>
+</footer>
+
 <script>
-(function(){
-  // dark mode toggle for <html>
-  const KEY = 'theme';
-  const BTN = document.getElementById('theme-toggle');
-  const root = document.documentElement;
-  function getInitialTheme(){
-    const saved = localStorage.getItem(KEY);
-    if(saved) return saved;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  function applyTheme(theme){
-    root.classList.toggle('dark', theme==='dark');
-    BTN.textContent = theme==='dark'?'☀️':'🌙';
-  }
-  let theme = getInitialTheme();
-  applyTheme(theme);
-  BTN.addEventListener('click', ()=>{
-    theme = root.classList.contains('dark')?'light':'dark';
-    localStorage.setItem(KEY, theme);
-    applyTheme(theme);
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
   });
-
-  // likes
-  const likeBtn=document.getElementById('like-btn');
-  const likeCount=document.getElementById('like-count');
-  let likes=parseInt(localStorage.getItem('likes-numb')||'0');
-  likeCount.textContent=likes;
-  likeBtn.addEventListener('click',()=>{
-    likes++; likeCount.textContent=likes;
-    localStorage.setItem('likes-numb',likes);
-  });
-
-  // comments
-  const commentForm=document.getElementById('comment-form');
-  const commentsList=document.getElementById('comments-list');
-  let comments=JSON.parse(localStorage.getItem('comments-numb')||'[]');
-  function renderComments(){
-    commentsList.innerHTML='';
-    comments.forEach(c=>{
-      const li=document.createElement('li');
-      li.innerHTML=`<strong>${c.name}:</strong> ${c.text}`;
-      commentsList.appendChild(li);
-    });
-  }
-  renderComments();
-  commentForm.addEventListener('submit',e=>{
-    e.preventDefault();
-    const name=document.getElementById('comment-name').value.trim();
-    const text=document.getElementById('comment-text').value.trim();
-    if(name && text){
-      comments.push({name,text});
-      localStorage.setItem('comments-numb',JSON.stringify(comments));
-      renderComments();
-      commentForm.reset();
-    }
-  });
-})();
 </script>
+
 </body>
 </html>
