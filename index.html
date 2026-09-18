@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<style>
+  :root {
+    --bg: #fdfdfb;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --rule: #d9d6cd;
+    --link: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14140f;
+      --text: #e8e6de;
+      --muted: #948f80;
+      --rule: #322f27;
+      --link: #e8e6de;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14140f;
+    --text: #e8e6de;
+    --muted: #948f80;
+    --rule: #322f27;
+    --link: #e8e6de;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+  h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 0 0 0.3rem;
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 0 2rem;
+  }
+  nav {
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+  nav a {
+    color: var(--link);
+    text-decoration: none;
+    margin-right: 1.2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  nav a.active {
+    border-bottom: 1px solid var(--text);
+  }
+  nav a:hover {
+    border-bottom: 1px solid var(--text);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+  a {
+    color: var(--link);
+  }
+  section { display: none; }
+  section.visible { display: block; }
+  p { margin: 0 0 1.1rem; }
+  ul {
+    padding-left: 1.2rem;
+    margin: 0 0 1.1rem;
+  }
+  li { margin-bottom: 0.4rem; }
+  .field {
+    margin-bottom: 1.4rem;
+  }
+  .field .label {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+  }
+  .note {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  footer {
+    margin-top: 4rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>[Your Name]</h1>
+<p class="tagline">Physics · IISER Kolkata</p>
+
+<nav>
+  <a href="#home" data-page="home">Home</a>
+  <a href="#music" data-page="music">Music &amp; Films</a>
+  <a href="#wiki" data-page="wiki">Wikipedia Favorites</a>
+</nav>
+
+<section id="page-home">
+  <div class="field">
+    <div class="label">Materials</div>
+    <p>Notes from my Quantum Field Theory coursework: <a href="#" id="qft-link">github link, to be added</a>.</p>
+  </div>
+
+  <div class="field">
+    <p class="note">If you're a physics/math student looking for notes, try these places: <a href="#" id="notes-link-1">placeholder link 1</a>, <a href="#" id="notes-link-2">placeholder link 2</a>, <a href="#" id="notes-link-3">placeholder link 3</a>.</p>
+  </div>
+
+  <div class="field">
+    <div class="label">Interests</div>
+    <p>Chaotic systems, quantum information, and condensed matter physics.</p>
+  </div>
+
+  <div class="field">
+    <div class="label">Quizzing</div>
+    <p>I quiz regularly. Sets will be uploaded here as they're written.</p>
+  </div>
+
+  <div class="field">
+    <div class="label">Education</div>
+    <p>
+      BS-MS in Physics, IISER Kolkata (2023–present), currently in my fourth year.<br>
+      PSBB, Nungambakkam (2008–2023).
+    </p>
+  </div>
+
+  <div class="field">
+    <div class="label">Languages</div>
+    <p>English, Tamil (native), Hindi, Telugu, German.</p>
+  </div>
+
+  <hr>
+  <p class="note">This page is perpetually under construction.</p>
+</section>
+
+<section id="page-music">
+  <div class="field">
+    <div class="label">Letterboxd</div>
+    <p><a href="https://letterboxd.com/sydneysriney/" target="_blank" rel="noopener">letterboxd.com/sydneysriney</a></p>
+  </div>
+
+  <div class="field">
+    <div class="label">Some favorites</div>
+    <ul>
+      <li>Agam</li>
+      <li>OK Computer &mdash; Radiohead</li>
+      <li>Graduation &mdash; Kanye West</li>
+      <li>Oh Kadhal Kanmani</li>
+    </ul>
+  </div>
+
+  <hr>
+  <p class="note">More recommendations to come.</p>
+</section>
+
+<section id="page-wiki">
+  <div class="field">
+    <div class="label">Favorite Wikipedia pages</div>
+    <p class="note">Coming soon.</p>
+  </div>
+</section>
+
+<footer>&nbsp;</footer>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('section').forEach(function(s) { s.classList.remove('visible'); });
+    document.querySelectorAll('nav a').forEach(function(a) { a.classList.remove('active'); });
+    var section = document.getElementById('page-' + name);
+    if (section) section.classList.add('visible');
+    var link = document.querySelector('nav a[data-page="' + name + '"]');
+    if (link) link.classList.add('active');
+  }
+  function routeFromHash() {
+    var name = (location.hash || '#home').replace('#', '');
+    if (!['home', 'music', 'wiki'].includes(name)) name = 'home';
+    showPage(name);
+  }
+  window.addEventListener('hashchange', routeFromHash);
+  routeFromHash();
+</script>
+
+</body>
+</html>
